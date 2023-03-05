@@ -6,7 +6,7 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  padding: 2rem;
+  padding: 2rem 0;
 
   div {
     display: flex;
@@ -26,10 +26,11 @@ const BaseCard = styled(NavLink)`
 export const CardLocation = styled(BaseCard)`
   background: ${(props) => props.theme['purple-light']};
   text-decoration: none;
+  color: ${(props) => props.theme.purple};
   gap: 0.25rem;
 `
 
 export const CardCart = styled(BaseCard)`
   background: ${(props) => props.theme['yellow-light']};
-  color: yellow;
+  color: ${(props) => props.theme.yellow};
 `
