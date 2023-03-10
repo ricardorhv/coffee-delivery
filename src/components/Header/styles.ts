@@ -23,14 +23,36 @@ const BaseCard = styled(NavLink)`
   align-items: center;
 `
 
-export const CardLocation = styled(BaseCard)`
+export const Location = styled(BaseCard)`
   background: ${(props) => props.theme['purple-light']};
   text-decoration: none;
   color: ${(props) => props.theme.purple};
   gap: 0.25rem;
 `
 
-export const CardCart = styled(BaseCard)`
+export const CartLink = styled(BaseCard)`
   background: ${(props) => props.theme['yellow-light']};
-  color: ${(props) => props.theme.yellow};
+  color: ${(props) => props.theme['yellow-dark']};
+  position: relative;
+
+  div {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+
+    background: ${(props) => props.theme['yellow-dark']};
+    color: ${(props) => props.theme.white};
+
+    border-radius: 999px;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    width: 1.25rem;
+    height: 1.25rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `

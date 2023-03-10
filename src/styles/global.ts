@@ -22,4 +22,10 @@ export const GlobalStyle = createGlobalStyle`
   h1, h2, h3, h4 {
     font-family: 'Baloo 2', sans-serif;
   }
+
+  button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+  }
 `

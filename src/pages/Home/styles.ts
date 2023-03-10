@@ -2,25 +2,15 @@ import styled from 'styled-components'
 import backgroundIntro from '../../assets/backgroundIntro.svg'
 
 export const HomeContainer = styled.div`
+  padding: 5.875rem 0 6.75rem;
+`
+
+export const IntroContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5.875rem 0 6.75rem;
   gap: 3.5rem;
-`
 
-export const Background = styled.div`
-  background: url(${backgroundIntro});
-  width: 100%;
-  height: 100%;
-
-  position: absolute;
-  top: 6.75rem;
-  left: 0;
-  z-index: -1;
-`
-
-export const TitleContainer = styled.div`
   line-height: 1.3;
 
   h1 {
@@ -31,6 +21,17 @@ export const TitleContainer = styled.div`
   p {
     font-size: 1.25;
   }
+`
+
+export const Background = styled.div`
+  background: url(${backgroundIntro});
+  width: 100%;
+  height: 80vh;
+
+  position: absolute;
+  top: 6.75rem;
+  left: 0;
+  z-index: -1;
 `
 
 export const GroupItems = styled.div`
@@ -66,4 +67,22 @@ export const Item = styled.div<ItemProps>`
     justify-content: center;
     align-items: center;
   }
+`
+
+export const CoffeeCatalog = styled.div`
+  margin-top: 6.75rem;
+  padding: 2rem 0;
+
+  h3 {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+`
+
+export const CoffeeList = styled.div`
+  display: grid;
+  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+  gap: 2rem 2.5rem;
+
+  margin-top: 3.375rem;
 `
