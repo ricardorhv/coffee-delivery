@@ -22,4 +22,9 @@ export const CounterContainer = styled.div`
       color: ${(props) => props.theme['purple-dark']};
     }
   }
+
+  span {
+    color: ${(props) => props.theme['base-title']};
+    line-height: 1;
+  }
 `

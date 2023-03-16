@@ -15,7 +15,6 @@ export const CoffeeCardContainer = styled.div`
   border-bottom-left-radius: 36px;
 
   position: relative;
-  line-height: 1.3;
 
   img {
     margin-top: -2.5rem;
@@ -27,7 +26,6 @@ export const CoffeeCardContainer = styled.div`
 
     font-weight: 700;
     font-size: 0.625rem;
-    line-height: 1.3;
 
     border-radius: 100px;
     padding: 0.25rem 0.5rem;

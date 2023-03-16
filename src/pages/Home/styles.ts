@@ -11,8 +11,6 @@ export const IntroContainer = styled.div`
   justify-content: space-between;
   gap: 3.5rem;
 
-  line-height: 1.3;
-
   h1 {
     color: ${(props) => props.theme['base-title']};
     font-size: 3rem;

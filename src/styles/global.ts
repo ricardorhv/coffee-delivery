@@ -12,6 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     color: ${(props) => props.theme['base-text']};
     position: relative;
+    line-height: 1.3;
   }
 
   body, input, text-area, button {

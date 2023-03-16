@@ -4,11 +4,11 @@ import { CounterContainer } from './styles'
 export function CoffeeCounter() {
   return (
     <CounterContainer>
-      <button>
+      <button type="button">
         <Minus size={14} />
       </button>
       <span>1</span>
-      <button>
+      <button type="button">
         <Plus size={14} />
       </button>
     </CounterContainer>
