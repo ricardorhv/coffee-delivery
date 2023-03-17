@@ -1,15 +1,15 @@
 import styled from 'styled-components'
 import backgroundIntro from '../../assets/backgroundIntro.svg'
 
-export const HomeContainer = styled.div`
-  padding: 5.875rem 0 6.75rem;
-`
-
 export const IntroContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 3.5rem;
+  position: relative;
+  padding: 5.875rem 0 6.75rem;
+
+  /* height: 34rem; */
 
   h1 {
     color: ${(props) => props.theme['base-title']};
@@ -23,12 +23,13 @@ export const IntroContainer = styled.div`
 
 export const Background = styled.div`
   background: url(${backgroundIntro});
-  width: 100%;
-  height: 80vh;
+  background-size: cover;
 
   position: absolute;
-  top: 6.75rem;
-  left: 0;
+  top: 0;
+  bottom: 0;
+  left: calc((100vw - 70rem) / -2);
+  right: calc((100vw - 70rem) / -2);
   z-index: -1;
 `
 
@@ -39,7 +40,6 @@ export const GroupItems = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   row-gap: 1.25rem;
-  column-gap: 2.5rem;
 `
 
 interface ItemProps {
@@ -68,7 +68,6 @@ export const Item = styled.div<ItemProps>`
 `
 
 export const CoffeeCatalog = styled.div`
-  margin-top: 6.75rem;
   padding: 2rem 0;
 
   h3 {

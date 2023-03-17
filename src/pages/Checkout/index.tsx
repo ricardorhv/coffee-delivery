@@ -19,7 +19,7 @@ import {
 
 export function Checkout() {
   return (
-    <CheckoutContainer>
+    <CheckoutContainer action="/success">
       <div>
         <h4>Complete seu pedido</h4>
         <InfoContainer iconColor="yellow-dark">
@@ -59,7 +59,12 @@ export function Checkout() {
                 <CreditCard size={16} />
                 <span>Cartão de Crédito</span>
               </label>
-              <input type="radio" name="payment-method" id="credit-card" />
+              <input
+                type="radio"
+                value="Cartão de Crédito"
+                name="payment-method"
+                id="credit-card"
+              />
             </div>
             <div>
               <label htmlFor="debit-card">
@@ -88,7 +93,7 @@ export function Checkout() {
           <footer>
             <div>
               <span>Total de itens</span>
-              <span>R$ 29,70</span>
+              <span>R$ 19,80</span>
             </div>
             <div>
               <span>Entrega</span>
@@ -96,7 +101,7 @@ export function Checkout() {
             </div>
             <div>
               <strong>Total</strong>
-              <strong>R$ 33,20</strong>
+              <strong>R$ 23,30</strong>
             </div>
             <ConfirmOrderButton>Confirmar Pedido</ConfirmOrderButton>
           </footer>

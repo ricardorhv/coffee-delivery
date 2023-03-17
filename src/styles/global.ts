@@ -9,10 +9,13 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     background: ${(props) => props.theme.background};
-    -webkit-font-smoothing: antialiased;
     color: ${(props) => props.theme['base-text']};
+
     position: relative;
     line-height: 1.3;
+
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   body, input, text-area, button {

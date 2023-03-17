@@ -5,7 +5,6 @@ import {
   CoffeeList,
   CoffeeCatalog,
   GroupItems,
-  HomeContainer,
   IntroContainer,
   Item,
 } from './styles'
@@ -14,7 +13,7 @@ import { CoffeeCard } from './components/CoffeeCard'
 
 export function Home() {
   return (
-    <HomeContainer>
+    <div>
       <IntroContainer>
         <div>
           <h1>Encontre o café perfeito para qualquer hora do dia</h1>
@@ -62,6 +61,6 @@ export function Home() {
           <CoffeeCard />
         </CoffeeList>
       </CoffeeCatalog>
-    </HomeContainer>
+    </div>
   )
 }

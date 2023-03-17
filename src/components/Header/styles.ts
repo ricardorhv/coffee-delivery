@@ -16,18 +16,21 @@ export const HeaderContainer = styled.header`
 `
 
 const BaseCard = styled(NavLink)`
-  padding: 0.5rem;
-  border-radius: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  padding: 0.5rem;
+  border-radius: 6px;
 `
 
 export const Location = styled(BaseCard)`
   background: ${(props) => props.theme['purple-light']};
-  text-decoration: none;
   color: ${(props) => props.theme.purple};
   gap: 0.25rem;
+
+  text-decoration: none;
+  line-height: 0;
 `
 
 export const CartLink = styled(BaseCard)`
