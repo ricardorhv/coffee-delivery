@@ -10,6 +10,7 @@ import {
 } from './styles'
 
 import { CoffeeCard } from './components/CoffeeCard'
+import { coffeeList } from '../../data/coffeeList'
 
 export function Home() {
   return (
@@ -55,10 +56,16 @@ export function Home() {
       <CoffeeCatalog>
         <h3>Nossos cafés</h3>
         <CoffeeList>
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
+          {coffeeList.map((coffee) => (
+            <CoffeeCard
+              coffeeImage={coffee.coffeeImage}
+              description={coffee.description}
+              name={coffee.name}
+              price={coffee.price}
+              tags={coffee.tags}
+              key={coffee.id}
+            />
+          ))}
         </CoffeeList>
       </CoffeeCatalog>
     </div>

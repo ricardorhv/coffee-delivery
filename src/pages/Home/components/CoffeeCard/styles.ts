@@ -20,21 +20,6 @@ export const CoffeeCardContainer = styled.div`
     margin-top: -2.5rem;
   }
 
-  img + div {
-    color: ${(props) => props.theme['yellow-dark']};
-    background: ${(props) => props.theme['yellow-light']};
-
-    font-weight: 700;
-    font-size: 0.625rem;
-
-    border-radius: 100px;
-    padding: 0.25rem 0.5rem;
-
-    text-transform: uppercase;
-
-    margin: 0.875rem 0 1rem;
-  }
-
   h4 {
     font-size: 1.25rem;
     font-weight: 700;
@@ -67,6 +52,27 @@ export const BuyInfo = styled.footer`
     display: flex;
     align-items: center;
     gap: 0.5rem;
+  }
+`
+
+export const TagList = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  div {
+    color: ${(props) => props.theme['yellow-dark']};
+    background: ${(props) => props.theme['yellow-light']};
+
+    font-weight: 700;
+    font-size: 0.625rem;
+
+    border-radius: 100px;
+    padding: 0.25rem 0.5rem;
+
+    text-transform: uppercase;
+
+    margin: 0.875rem 0 1rem;
   }
 `
 
