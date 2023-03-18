@@ -9,8 +9,6 @@ export const IntroContainer = styled.div`
   position: relative;
   padding: 5.875rem 0 6.75rem;
 
-  /* height: 34rem; */
-
   h1 {
     color: ${(props) => props.theme['base-title']};
     font-size: 3rem;

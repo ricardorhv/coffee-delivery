@@ -12,7 +12,7 @@ export function Header() {
       <div>
         <Location to="/">
           <MapPin size={22} weight="fill" />
-          <span>Porto Alegre, RS</span>
+          <span>Assis Chateaubriand, PR</span>
         </Location>
         <CartLink to="/checkout" title="Carrinho de compra">
           <ShoppingCart size={22} weight="fill" />
