@@ -1,7 +1,7 @@
 import { ShoppingCart } from 'phosphor-react'
-import { BuyInfo, CartButton, CoffeeCardContainer, TagList } from './styles'
+import { Buy, CartButton, CoffeeCardContainer, TagList } from './styles'
 
-import { CoffeeCounter } from '../../../../components/CoffeeCounter'
+import { QuantityCounter } from '../../../../components/QuantityCounter'
 import { formatNumber } from '../../../../utils/format-number'
 
 interface Coffee {
@@ -36,19 +36,19 @@ export function CoffeeCard({
       <h4>{name}</h4>
       <p>{description}</p>
 
-      <BuyInfo>
+      <Buy>
         <span>
           R$
           <strong> {formatNumber(price)}</strong>
         </span>
 
         <div>
-          <CoffeeCounter />
+          <QuantityCounter />
           <CartButton title="Adicionar Café no carrinho">
             <ShoppingCart size={22} weight="fill" />
           </CartButton>
         </div>
-      </BuyInfo>
+      </Buy>
     </CoffeeCardContainer>
   )
 }

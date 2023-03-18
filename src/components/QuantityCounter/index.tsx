@@ -1,7 +1,7 @@
 import { Minus, Plus } from 'phosphor-react'
 import { CounterContainer } from './styles'
 
-export function CoffeeCounter() {
+export function QuantityCounter() {
   return (
     <CounterContainer>
       <button type="button">

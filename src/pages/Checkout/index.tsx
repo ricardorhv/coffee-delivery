@@ -6,8 +6,9 @@ import {
   Money,
   Trash,
 } from 'phosphor-react'
-import { CoffeeCounter } from '../../components/CoffeeCounter'
+
 import { CoffeeSelected } from './components/CoffeeSelected'
+
 import {
   AddressWrapper,
   CheckoutContainer,

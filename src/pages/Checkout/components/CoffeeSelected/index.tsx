@@ -1,5 +1,5 @@
 import { Trash } from 'phosphor-react'
-import { CoffeeCounter } from '../../../../components/CoffeeCounter'
+import { QuantityCounter } from '../../../../components/QuantityCounter'
 import {
   CoffeeSelectedContainer,
   Info,
@@ -15,7 +15,7 @@ export function CoffeeSelected() {
         <div>
           <span>Expresso Tradicional</span>
           <div>
-            <CoffeeCounter />
+            <QuantityCounter />
             <RemoveCoffeeFromCartButton>
               <Trash size={16} />
               <span>Remover</span>

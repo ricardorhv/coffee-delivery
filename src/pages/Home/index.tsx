@@ -1,5 +1,9 @@
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 import coffeeDeliveryImg from '../../assets/coffeeDeliveryImg.svg'
+
+import { CoffeeCard } from './components/CoffeeCard'
+import { coffeeList } from '../../data/coffeeList'
+
 import {
   Background,
   CoffeeList,
@@ -8,9 +12,6 @@ import {
   IntroContainer,
   Item,
 } from './styles'
-
-import { CoffeeCard } from './components/CoffeeCard'
-import { coffeeList } from '../../data/coffeeList'
 
 export function Home() {
   return (

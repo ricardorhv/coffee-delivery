@@ -32,7 +32,7 @@ export const CoffeeCardContainer = styled.div`
   }
 `
 
-export const BuyInfo = styled.footer`
+export const Buy = styled.footer`
   display: flex;
   gap: 1.4375rem;
   align-items: center;
