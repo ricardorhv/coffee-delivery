@@ -18,13 +18,19 @@ import {
   InfoContainer,
   CartContainer,
   ConfirmOrderButton,
+  EmptyCart,
 } from './styles'
 
 export function Checkout() {
   const { cart } = useContext(CoffeeContext)
   const { coffeeList, deliveryPrice, subtotal, total } = cart
+  const isCartEmpty = coffeeList.length === 0
 
-  return (
+  return isCartEmpty ? (
+    <EmptyCart>
+      <h1>Você não possui nenhum item no carrinho!</h1>
+    </EmptyCart>
+  ) : (
     <CheckoutContainer action="/success">
       <div>
         <h4>Complete seu pedido</h4>
@@ -92,32 +98,26 @@ export function Checkout() {
       <aside>
         <h4>Cafés selecionados</h4>
         <CartContainer>
-          {coffeeList.length !== 0 ? (
-            <>
-              <section>
-                {coffeeList.map((coffee) => (
-                  <CoffeeSelected key={coffee.id} {...coffee} />
-                ))}
-              </section>
-              <footer>
-                <div>
-                  <span>Total de itens</span>
-                  <span>R$ 19,80</span>
-                </div>
-                <div>
-                  <span>Entrega</span>
-                  <span>R$ 3,50</span>
-                </div>
-                <div>
-                  <strong>Total</strong>
-                  <strong>R$ 23,30</strong>
-                </div>
-                <ConfirmOrderButton>Confirmar Pedido</ConfirmOrderButton>
-              </footer>
-            </>
-          ) : (
-            <h4>Você não possui nenhum item no carrinho!</h4>
-          )}
+          <section>
+            {coffeeList.map((coffee) => (
+              <CoffeeSelected key={coffee.id} {...coffee} />
+            ))}
+          </section>
+          <footer>
+            <div>
+              <span>Total de itens</span>
+              <span>R$ 19,80</span>
+            </div>
+            <div>
+              <span>Entrega</span>
+              <span>R$ 3,50</span>
+            </div>
+            <div>
+              <strong>Total</strong>
+              <strong>R$ 23,30</strong>
+            </div>
+            <ConfirmOrderButton>Confirmar Pedido</ConfirmOrderButton>
+          </footer>
         </CartContainer>
       </aside>
     </CheckoutContainer>

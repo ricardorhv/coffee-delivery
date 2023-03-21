@@ -221,3 +221,11 @@ export const ConfirmOrderButton = styled.button`
     background: ${(props) => props.theme['yellow-dark']};
   }
 `
+
+export const EmptyCart = styled.div`
+  width: 100%;
+  padding: 10rem 0;
+
+  display: flex;
+  justify-content: center;
+`
