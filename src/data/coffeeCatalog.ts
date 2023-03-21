@@ -15,7 +15,7 @@ import mocaccinoImg from '../assets/Mocaccino.png'
 
 const coffeePrice = 9.9
 
-export const coffeeList = [
+export const coffeeCatalog = [
   {
     id: 1,
     name: 'Expresso Tradicional',

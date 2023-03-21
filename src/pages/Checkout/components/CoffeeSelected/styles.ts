@@ -8,7 +8,7 @@ export const CoffeeSelectedContainer = styled.div`
   padding: 0.5rem 0.25rem 2rem;
 
   border-bottom: 1px solid ${(props) => props.theme['base-button']};
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
 `
 
 export const Info = styled.div`

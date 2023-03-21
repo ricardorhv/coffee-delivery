@@ -6,14 +6,21 @@ import {
   RemoveCoffeeFromCartButton,
 } from './styles'
 import AmericanoImg from '../../../../assets/Americano.png'
+import { CoffeeCart } from '../../../../context/CoffeeContext'
+import { formatNumber } from '../../../../utils/format-number'
 
-export function CoffeeSelected() {
+export function CoffeeSelected({
+  name,
+  coffeeImage,
+  price,
+  quantity,
+}: CoffeeCart) {
   return (
     <CoffeeSelectedContainer>
       <Info>
-        <img src={AmericanoImg} alt="" />
+        <img src={coffeeImage} alt="" />
         <div>
-          <span>Expresso Tradicional</span>
+          <span>{name}</span>
           <div>
             <QuantityCounter />
             <RemoveCoffeeFromCartButton>
@@ -23,7 +30,7 @@ export function CoffeeSelected() {
           </div>
         </div>
       </Info>
-      <strong>R$ 9,90</strong>
+      <strong>R$ {formatNumber(price)}</strong>
     </CoffeeSelectedContainer>
   )
 }

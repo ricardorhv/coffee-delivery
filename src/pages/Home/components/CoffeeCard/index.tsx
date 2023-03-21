@@ -3,22 +3,32 @@ import { Buy, CartButton, CoffeeCardContainer, TagList } from './styles'
 
 import { QuantityCounter } from '../../../../components/QuantityCounter'
 import { formatNumber } from '../../../../utils/format-number'
-
-interface Coffee {
-  name: string
-  description: string
-  tags: string[]
-  price: number
-  coffeeImage: string
-}
+import { Coffee, CoffeeContext } from '../../../../context/CoffeeContext'
+import { useContext } from 'react'
 
 export function CoffeeCard({
+  id,
   name,
   description,
   coffeeImage,
   price,
   tags,
 }: Coffee) {
+  const { addCoffeeToTheCart } = useContext(CoffeeContext)
+
+  function handleAddCoffeeToTheCart() {
+    addCoffeeToTheCart({
+      id,
+      name,
+      description,
+      coffeeImage,
+      price,
+      tags,
+      quantity: 1,
+    })
+    alert('Item adicionado no carrinho')
+  }
+
   return (
     <CoffeeCardContainer>
       <img src={coffeeImage} alt="" />
@@ -44,7 +54,10 @@ export function CoffeeCard({
 
         <div>
           <QuantityCounter />
-          <CartButton title="Adicionar Café no carrinho">
+          <CartButton
+            title="Adicionar Café no carrinho"
+            onClick={handleAddCoffeeToTheCart}
+          >
             <ShoppingCart size={22} weight="fill" />
           </CartButton>
         </div>

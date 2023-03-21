@@ -169,7 +169,18 @@ export const CartContainer = styled.div`
   border-bottom-left-radius: 44px;
   border-bottom-right-radius: 6px;
 
+  min-width: 23rem;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
   footer {
+    margin-top: 1.5rem;
+
     div {
       display: flex;
       justify-content: space-between;

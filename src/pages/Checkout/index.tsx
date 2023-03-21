@@ -6,6 +6,8 @@ import {
   Money,
   Trash,
 } from 'phosphor-react'
+import { useContext } from 'react'
+import { CoffeeContext } from '../../context/CoffeeContext'
 
 import { CoffeeSelected } from './components/CoffeeSelected'
 
@@ -19,6 +21,9 @@ import {
 } from './styles'
 
 export function Checkout() {
+  const { cart } = useContext(CoffeeContext)
+  const { coffeeList, deliveryPrice, subtotal, total } = cart
+
   return (
     <CheckoutContainer action="/success">
       <div>
@@ -87,25 +92,32 @@ export function Checkout() {
       <aside>
         <h4>Cafés selecionados</h4>
         <CartContainer>
-          <section>
-            <CoffeeSelected />
-            <CoffeeSelected />
-          </section>
-          <footer>
-            <div>
-              <span>Total de itens</span>
-              <span>R$ 19,80</span>
-            </div>
-            <div>
-              <span>Entrega</span>
-              <span>R$ 3,50</span>
-            </div>
-            <div>
-              <strong>Total</strong>
-              <strong>R$ 23,30</strong>
-            </div>
-            <ConfirmOrderButton>Confirmar Pedido</ConfirmOrderButton>
-          </footer>
+          {coffeeList.length !== 0 ? (
+            <>
+              <section>
+                {coffeeList.map((coffee) => (
+                  <CoffeeSelected key={coffee.id} {...coffee} />
+                ))}
+              </section>
+              <footer>
+                <div>
+                  <span>Total de itens</span>
+                  <span>R$ 19,80</span>
+                </div>
+                <div>
+                  <span>Entrega</span>
+                  <span>R$ 3,50</span>
+                </div>
+                <div>
+                  <strong>Total</strong>
+                  <strong>R$ 23,30</strong>
+                </div>
+                <ConfirmOrderButton>Confirmar Pedido</ConfirmOrderButton>
+              </footer>
+            </>
+          ) : (
+            <h4>Você não possui nenhum item no carrinho!</h4>
+          )}
         </CartContainer>
       </aside>
     </CheckoutContainer>
