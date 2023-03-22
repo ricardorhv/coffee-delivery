@@ -53,6 +53,7 @@ export const CartLink = styled(BaseCard)`
 
     width: 1.25rem;
     height: 1.25rem;
+    line-height: 0;
 
     display: flex;
     align-items: center;

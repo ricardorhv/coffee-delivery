@@ -79,5 +79,13 @@ export const CoffeeList = styled.div`
   grid-template: repeat(4, 1fr) / repeat(4, 1fr);
   gap: 2rem 2.5rem;
 
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 850px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
   margin-top: 3.375rem;
 `

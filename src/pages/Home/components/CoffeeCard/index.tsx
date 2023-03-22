@@ -4,7 +4,7 @@ import { Buy, CartButton, CoffeeCardContainer, TagList } from './styles'
 import { QuantityCounter } from '../../../../components/QuantityCounter'
 import { formatNumber } from '../../../../utils/format-number'
 import { Coffee, CoffeeContext } from '../../../../context/CoffeeContext'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
 export function CoffeeCard({
   id,
@@ -15,6 +15,17 @@ export function CoffeeCard({
   tags,
 }: Coffee) {
   const { addCoffeeToTheCart } = useContext(CoffeeContext)
+  const [counter, setCounter] = useState(1)
+
+  function handleIncreaseCounter() {
+    setCounter((state) => state + 1)
+  }
+
+  function handleDecreaseCounter() {
+    if (counter !== 1) {
+      setCounter((state) => state - 1)
+    }
+  }
 
   function handleAddCoffeeToTheCart() {
     addCoffeeToTheCart({
@@ -24,7 +35,7 @@ export function CoffeeCard({
       coffeeImage,
       price,
       tags,
-      quantity: 1,
+      quantity: counter,
     })
     alert('Item adicionado no carrinho')
   }
@@ -53,7 +64,11 @@ export function CoffeeCard({
         </span>
 
         <div>
-          <QuantityCounter />
+          <QuantityCounter
+            counter={counter}
+            handleDecreaseCounter={handleDecreaseCounter}
+            handleIncreaseCounter={handleIncreaseCounter}
+          />
           <CartButton
             title="Adicionar Café no carrinho"
             onClick={handleAddCoffeeToTheCart}

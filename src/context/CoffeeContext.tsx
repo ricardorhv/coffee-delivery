@@ -44,6 +44,18 @@ export function CoffeeContextProvider({
   }
 
   const [cart, setCart] = useState<Cart>(cartInitial)
+  // const [quantity, setQuantity] = useState(1)
+
+  // function increaseQuantity(coffeeId: number) {
+  //   setCart((state) => {
+  //     const state.coffeeList.find((coffee) => coffee.id === coffeeId)
+
+  //     return {
+  //       ...state,
+  //       coffeeList,
+  //     }
+  //   })
+  // }
 
   function calculateSubtotal() {}
 

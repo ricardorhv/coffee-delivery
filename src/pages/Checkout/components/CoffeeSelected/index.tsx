@@ -8,6 +8,7 @@ import {
 import AmericanoImg from '../../../../assets/Americano.png'
 import { CoffeeCart } from '../../../../context/CoffeeContext'
 import { formatNumber } from '../../../../utils/format-number'
+import { useState } from 'react'
 
 export function CoffeeSelected({
   name,
@@ -15,6 +16,18 @@ export function CoffeeSelected({
   price,
   quantity,
 }: CoffeeCart) {
+  const [counter, setCounter] = useState(quantity)
+
+  function handleIncreaseCounter() {
+    setCounter((state) => state + 1)
+  }
+
+  function handleDecreaseCounter() {
+    if (counter !== 1) {
+      setCounter((state) => state - 1)
+    }
+  }
+
   return (
     <CoffeeSelectedContainer>
       <Info>
@@ -22,7 +35,11 @@ export function CoffeeSelected({
         <div>
           <span>{name}</span>
           <div>
-            <QuantityCounter />
+            <QuantityCounter
+              counter={counter}
+              handleDecreaseCounter={handleDecreaseCounter}
+              handleIncreaseCounter={handleIncreaseCounter}
+            />
             <RemoveCoffeeFromCartButton>
               <Trash size={16} />
               <span>Remover</span>
