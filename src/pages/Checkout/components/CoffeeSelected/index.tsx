@@ -1,31 +1,41 @@
+import { useContext, useState } from 'react'
+
 import { Trash } from 'phosphor-react'
-import { QuantityCounter } from '../../../../components/QuantityCounter'
 import {
   CoffeeSelectedContainer,
   Info,
   RemoveCoffeeFromCartButton,
 } from './styles'
-import AmericanoImg from '../../../../assets/Americano.png'
-import { CoffeeCart } from '../../../../context/CoffeeContext'
+
+import { Counter } from '../../../../components/Counter'
+import { CoffeeCart, CoffeeContext } from '../../../../context/CoffeeContext'
 import { formatNumber } from '../../../../utils/format-number'
-import { useState } from 'react'
 
 export function CoffeeSelected({
   name,
   coffeeImage,
   price,
   quantity,
+  id,
 }: CoffeeCart) {
   const [counter, setCounter] = useState(quantity)
+  const { removeCoffeeFromTheCart, increaseQuantity, decreaseQuantity } =
+    useContext(CoffeeContext)
 
   function handleIncreaseCounter() {
     setCounter((state) => state + 1)
+    increaseQuantity(id, counter)
   }
 
   function handleDecreaseCounter() {
     if (counter !== 1) {
       setCounter((state) => state - 1)
+      decreaseQuantity(id, counter)
     }
+  }
+
+  function handleRemoveCoffee() {
+    removeCoffeeFromTheCart(id)
   }
 
   return (
@@ -35,12 +45,12 @@ export function CoffeeSelected({
         <div>
           <span>{name}</span>
           <div>
-            <QuantityCounter
+            <Counter
               counter={counter}
               handleDecreaseCounter={handleDecreaseCounter}
               handleIncreaseCounter={handleIncreaseCounter}
             />
-            <RemoveCoffeeFromCartButton>
+            <RemoveCoffeeFromCartButton onClick={handleRemoveCoffee}>
               <Trash size={16} />
               <span>Remover</span>
             </RemoveCoffeeFromCartButton>

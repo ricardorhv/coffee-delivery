@@ -1,8 +1,8 @@
 import { createContext, ReactNode, useState } from 'react'
-import { coffeeCatalog } from '../data/coffeeCatalog'
+import { v4 as uuid } from 'uuid'
 
 export interface Coffee {
-  id: number
+  id: string
   name: string
   description: string
   tags: string[]
@@ -14,17 +14,18 @@ export interface CoffeeCart extends Coffee {
   quantity: number
 }
 
-interface Cart {
-  coffeeList: CoffeeCart[]
+interface CartInfo {
   subtotal: number
   deliveryPrice: number
   total: number
 }
 
 interface CoffeeContextType {
-  // coffeeCatalog: Coffee[]
-  cart: Cart
+  coffeeListCart: CoffeeCart[]
   addCoffeeToTheCart: (data: CoffeeCart) => void
+  removeCoffeeFromTheCart: (coffeeId: string) => void
+  increaseQuantity: (coffeeId: string, counter: number) => void
+  decreaseQuantity: (coffeeId: string, counter: number) => void
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextType)
@@ -36,42 +37,59 @@ interface CoffeeContextProviderProps {
 export function CoffeeContextProvider({
   children,
 }: CoffeeContextProviderProps) {
-  const cartInitial = {
-    coffeeList: [],
-    subtotal: 0,
-    deliveryPrice: 3.5,
-    total: 0,
+  const [coffeeListCart, setCoffeeListCart] = useState<CoffeeCart[]>([])
+
+  function addCoffeeToTheCart(newCoffee: CoffeeCart) {
+    const newCoffeeCart = {
+      ...newCoffee,
+      id: uuid(),
+    }
+    setCoffeeListCart((state) => [...state, newCoffeeCart])
   }
 
-  const [cart, setCart] = useState<Cart>(cartInitial)
-  // const [quantity, setQuantity] = useState(1)
+  function removeCoffeeFromTheCart(coffeeId: string) {
+    const newCoffeeListCart = coffeeListCart.filter(
+      (coffee) => coffee.id !== coffeeId,
+    )
+    setCoffeeListCart(newCoffeeListCart)
+  }
 
-  // function increaseQuantity(coffeeId: number) {
-  //   setCart((state) => {
-  //     const state.coffeeList.find((coffee) => coffee.id === coffeeId)
-
-  //     return {
-  //       ...state,
-  //       coffeeList,
-  //     }
-  //   })
-  // }
-
-  function calculateSubtotal() {}
-
-  function calculateTotal() {}
-
-  function addCoffeeToTheCart(data: CoffeeCart) {
-    setCart((state) => {
-      return {
-        ...state,
-        coffeeList: [...state.coffeeList, data],
+  function increaseQuantity(coffeeId: string, counter: number) {
+    const newCoffeeListCart = coffeeListCart.map((coffeeCart) => {
+      if (coffeeCart.id === coffeeId) {
+        return {
+          ...coffeeCart,
+          quantity: coffeeCart.quantity + 1,
+        }
       }
+      return coffeeCart
     })
+    setCoffeeListCart(newCoffeeListCart)
+  }
+
+  function decreaseQuantity(coffeeId: string, counter: number) {
+    const newCoffeeListCart = coffeeListCart.map((coffeeCart) => {
+      if (coffeeCart.id === coffeeId) {
+        return {
+          ...coffeeCart,
+          quantity: coffeeCart.quantity - 1,
+        }
+      }
+      return coffeeCart
+    })
+    setCoffeeListCart(newCoffeeListCart)
   }
 
   return (
-    <CoffeeContext.Provider value={{ cart, addCoffeeToTheCart }}>
+    <CoffeeContext.Provider
+      value={{
+        coffeeListCart,
+        addCoffeeToTheCart,
+        removeCoffeeFromTheCart,
+        increaseQuantity,
+        decreaseQuantity,
+      }}
+    >
       {children}
     </CoffeeContext.Provider>
   )

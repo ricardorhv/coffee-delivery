@@ -13,11 +13,13 @@ import latteImg from '../assets/Latte.png'
 import macchiatoImg from '../assets/Macchiato.png'
 import mocaccinoImg from '../assets/Mocaccino.png'
 
+import { v4 as uuid } from 'uuid'
+
 const coffeePrice = 9.9
 
 export const coffeeCatalog = [
   {
-    id: 1,
+    id: uuid(),
     name: 'Expresso Tradicional',
     description: 'O tradicional café feito com água quente e grãos moídos',
     tags: ['Tradicional'],
@@ -25,7 +27,7 @@ export const coffeeCatalog = [
     coffeeImage: expressoImg,
   },
   {
-    id: 2,
+    id: uuid(),
     name: 'Expresso Americano',
     description: 'Expresso diluído, menos intenso que o tradicional',
     tags: ['Tradicional'],
@@ -33,7 +35,7 @@ export const coffeeCatalog = [
     coffeeImage: americanoImg,
   },
   {
-    id: 3,
+    id: uuid(),
     name: 'Expresso Cremoso',
     description: 'Café expresso tradicional com espuma cremosa',
     tags: ['Tradicional'],
@@ -41,7 +43,7 @@ export const coffeeCatalog = [
     coffeeImage: expressoCremosoImg,
   },
   {
-    id: 4,
+    id: uuid(),
     name: 'Expresso Gelado',
     description: 'Bebida preparada com café expresso e cubos de gelo',
     tags: ['Tradicional', 'Gelado'],
@@ -49,7 +51,7 @@ export const coffeeCatalog = [
     coffeeImage: coffeeGeladoImg,
   },
   {
-    id: 5,
+    id: uuid(),
     name: 'Café com Leite',
     description: 'Meio a meio de expresso tradicional com leite vaporizado',
     tags: ['Tradicional', 'Com leite'],
@@ -57,7 +59,7 @@ export const coffeeCatalog = [
     coffeeImage: coffeeWithMilkImg,
   },
   {
-    id: 6,
+    id: uuid(),
     name: 'Latte',
     description:
       'Uma dose de café expresso com o dobro de leite e espuma cremosa',
@@ -66,7 +68,7 @@ export const coffeeCatalog = [
     coffeeImage: latteImg,
   },
   {
-    id: 7,
+    id: uuid(),
     name: 'Capuccino',
     description:
       'Bebida com canela feita de doses iguais de café, leite e espuma',
@@ -75,7 +77,7 @@ export const coffeeCatalog = [
     coffeeImage: capuccinoImg,
   },
   {
-    id: 8,
+    id: uuid(),
     name: 'Macchiato',
     description:
       'Café expresso misturado com um pouco de leite quente e espuma',
@@ -84,7 +86,7 @@ export const coffeeCatalog = [
     coffeeImage: macchiatoImg,
   },
   {
-    id: 9,
+    id: uuid(),
     name: 'Mocaccino',
     description: 'Café expresso com calda de chocolate, pouco leite e espuma',
     tags: ['Tradicional', 'Com leite'],
@@ -92,7 +94,7 @@ export const coffeeCatalog = [
     coffeeImage: mocaccinoImg,
   },
   {
-    id: 10,
+    id: uuid(),
     name: 'Chocolate Quente',
     description: 'Bebida feita com chocolate dissolvido no leite quente e café',
     tags: ['Tradicional', 'Com leite'],
@@ -100,7 +102,7 @@ export const coffeeCatalog = [
     coffeeImage: chocolateHotImg,
   },
   {
-    id: 11,
+    id: uuid(),
     name: 'Cubano',
     description:
       'Drink gelado de café expresso com rum, creme de leite e hortelã',
@@ -109,7 +111,7 @@ export const coffeeCatalog = [
     coffeeImage: cubanoImg,
   },
   {
-    id: 12,
+    id: uuid(),
     name: 'Havaiano',
     description: 'Bebida adocicada preparada com café e leite de coco',
     tags: ['Especial'],
@@ -117,7 +119,7 @@ export const coffeeCatalog = [
     coffeeImage: macchiatoImg,
   },
   {
-    id: 13,
+    id: uuid(),
     name: 'Árabe',
     description: 'Bebida preparada com grãos de café árabe e especiarias',
     tags: ['Especial'],
@@ -125,7 +127,7 @@ export const coffeeCatalog = [
     coffeeImage: arabeImg,
   },
   {
-    id: 14,
+    id: uuid(),
     name: 'Irlandês',
     description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
     tags: ['Especial', 'Alcoólico'],

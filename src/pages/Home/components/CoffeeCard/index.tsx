@@ -1,10 +1,12 @@
+import { useContext, useState } from 'react'
+
 import { ShoppingCart } from 'phosphor-react'
 import { Buy, CartButton, CoffeeCardContainer, TagList } from './styles'
 
-import { QuantityCounter } from '../../../../components/QuantityCounter'
 import { formatNumber } from '../../../../utils/format-number'
 import { Coffee, CoffeeContext } from '../../../../context/CoffeeContext'
-import { useContext, useState } from 'react'
+
+import { Counter } from '../../../../components/Counter'
 
 export function CoffeeCard({
   id,
@@ -64,7 +66,7 @@ export function CoffeeCard({
         </span>
 
         <div>
-          <QuantityCounter
+          <Counter
             counter={counter}
             handleDecreaseCounter={handleDecreaseCounter}
             handleIncreaseCounter={handleIncreaseCounter}

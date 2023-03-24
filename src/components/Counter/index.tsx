@@ -1,4 +1,3 @@
-import { useContext, useState } from 'react'
 import { Minus, Plus } from 'phosphor-react'
 import { CounterContainer } from './styles'
 
@@ -8,7 +7,7 @@ interface CounterProps {
   handleDecreaseCounter: () => void
 }
 
-export function QuantityCounter({
+export function Counter({
   counter,
   handleDecreaseCounter,
   handleIncreaseCounter,
@@ -24,7 +23,9 @@ export function QuantityCounter({
       >
         <Minus size={14} />
       </button>
+
       <span>{counter}</span>
+
       <button type="button" onClick={handleIncreaseCounter}>
         <Plus size={14} />
       </button>
