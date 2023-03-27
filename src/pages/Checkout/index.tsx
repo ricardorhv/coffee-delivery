@@ -1,58 +1,58 @@
+import { useContext } from 'react'
+
 import {
   Bank,
   CreditCard,
   CurrencyDollar,
   MapPinLine,
   Money,
-  Trash,
 } from 'phosphor-react'
-import { useContext } from 'react'
+
 import { CoffeeContext } from '../../context/CoffeeContext'
-import { formatNumber } from '../../utils/format-number'
 
-import { CoffeeSelected } from './components/CoffeeSelected'
-
+import { Cart } from './components/Cart'
 import {
   AddressWrapper,
   CheckoutContainer,
   PaymentWays,
   InfoContainer,
-  CartContainer,
-  ConfirmOrderButton,
   EmptyCart,
 } from './styles'
+import { useForm } from 'react-hook-form'
+
+enum PaymentWaysEnum {
+  creditCard = 'Cartão de Crédito',
+  debitCard = 'Cartão de Débito',
+  cash = 'Dinheiro',
+}
+
+interface FormProps {
+  CEP: string
+  street: string
+  houseNumber: number
+  complement: string
+  neighborhood: string
+  city: string
+  UF: string
+  paymentWay: PaymentWaysEnum
+}
 
 export function Checkout() {
   const { coffeeListCart } = useContext(CoffeeContext)
-
-  const cartInfo = {
-    deliveryPrice: 3.5,
-    subtotal: 0,
-    total: 0,
-  }
-
   const isCartEmpty = coffeeListCart.length === 0
 
-  function getSubtotal() {
-    const subtotal = coffeeListCart.reduce((acc, item) => {
-      return acc + item.price * item.quantity
-    }, 0)
-    return subtotal
-  }
+  const { register, handleSubmit } = useForm<FormProps>({
+    defaultValues: {
+      paymentWay: PaymentWaysEnum.creditCard,
+    },
+  })
 
-  function getTotal() {
-    const subtotal = getSubtotal()
-    return subtotal + cartInfo.deliveryPrice
-  }
-
-  cartInfo.total = getTotal()
-  cartInfo.subtotal = getSubtotal()
-
-  return isCartEmpty ? (
-    <EmptyCart>
-      <h1>Você não possui nenhum item no carrinho!</h1>
-    </EmptyCart>
-  ) : (
+  // isCartEmpty ? (
+  //   <EmptyCart>
+  //     <h1>Você não possui nenhum item no carrinho!</h1>
+  //   </EmptyCart>
+  // ) :
+  return (
     <CheckoutContainer action="/success">
       <div>
         <h4>Complete seu pedido</h4>
@@ -66,13 +66,25 @@ export function Checkout() {
           </header>
 
           <AddressWrapper>
-            <input type="text" placeholder="CEP" />
-            <input type="text" placeholder="Rua" />
-            <input type="text" placeholder="Número" />
-            <input type="text" placeholder="Complemento" />
-            <input type="text" placeholder="Bairro" />
-            <input type="text" placeholder="Cidade" />
-            <input type="text" placeholder="UF" />
+            <input type="text" placeholder="CEP" {...register('CEP')} />
+            <input type="text" placeholder="Rua" {...register('street')} />
+            <input
+              type="text"
+              placeholder="Número"
+              {...register('houseNumber')}
+            />
+            <input
+              type="text"
+              placeholder="Complemento"
+              {...register('complement')}
+            />
+            <input
+              type="text"
+              placeholder="Bairro"
+              {...register('neighborhood')}
+            />
+            <input type="text" placeholder="Cidade" {...register('city')} />
+            <input type="text" placeholder="UF" {...register('UF')} />
           </AddressWrapper>
         </InfoContainer>
 
@@ -96,8 +108,8 @@ export function Checkout() {
               <input
                 type="radio"
                 value="Cartão de Crédito"
-                name="payment-method"
                 id="credit-card"
+                {...register('paymentWay')}
               />
             </div>
             <div>
@@ -105,42 +117,21 @@ export function Checkout() {
                 <Bank size={16} />
                 <span>Cartão de Débito</span>
               </label>
-              <input type="radio" name="payment-method" id="debit-card" />
+              <input type="radio" id="debit-card" {...register('paymentWay')} />
             </div>
             <div>
               <label htmlFor="cash">
                 <Money size={16} />
                 <span>Dinheiro</span>
               </label>
-              <input type="radio" name="payment-method" id="cash" />
+              <input type="radio" id="cash" {...register('paymentWay')} />
             </div>
           </PaymentWays>
         </InfoContainer>
       </div>
       <aside>
         <h4>Cafés selecionados</h4>
-        <CartContainer>
-          <section>
-            {coffeeListCart.map((coffee) => (
-              <CoffeeSelected key={coffee.id} {...coffee} />
-            ))}
-          </section>
-          <footer>
-            <div>
-              <span>Total de itens</span>
-              <span>R$ {formatNumber(cartInfo.subtotal)}</span>
-            </div>
-            <div>
-              <span>Entrega</span>
-              <span>R$ {formatNumber(cartInfo.deliveryPrice)}</span>
-            </div>
-            <div>
-              <strong>Total</strong>
-              <strong>R$ {formatNumber(cartInfo.total)}</strong>
-            </div>
-            <ConfirmOrderButton>Confirmar Pedido</ConfirmOrderButton>
-          </footer>
-        </CartContainer>
+        <Cart />
       </aside>
     </CheckoutContainer>
   )
