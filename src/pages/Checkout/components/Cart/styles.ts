@@ -9,8 +9,6 @@ export const CartContainer = styled.div`
   border-bottom-left-radius: 44px;
   border-bottom-right-radius: 6px;
 
-  min-width: 23rem;
-
   section {
     display: flex;
     flex-direction: column;

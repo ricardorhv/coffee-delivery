@@ -3,6 +3,8 @@ export const defaultTheme = {
   'yellow-light': '#F1E9C9',
   'yellow-dark': '#C47F17',
 
+  red: '#E15554',
+
   purple: '#8047F8',
   'purple-light': '#EBE5F9',
   'purple-dark': '#4B2995',

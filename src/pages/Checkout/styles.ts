@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 
 export const CheckoutContainer = styled.form`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 40rem 1fr;
+  column-gap: 2rem;
 
   margin: 2.5rem 0;
 
@@ -14,47 +15,50 @@ export const CheckoutContainer = styled.form`
   }
 `
 
-interface WrapperProps {
-  iconColor: 'yellow-dark' | 'purple'
-}
-
-export const InfoContainer = styled.section<WrapperProps>`
-  padding: 2.5rem;
-
-  border-radius: 6px;
+export const Card = styled.section`
   background: ${(props) => props.theme['base-card']};
-
-  header {
-    display: flex;
-    gap: 0.5rem;
-
-    margin-bottom: 2rem;
-
-    svg {
-      color: ${(props) => props.theme[props.iconColor]};
-    }
-
-    span {
-      color: ${(props) => props.theme['base-subtitle']};
-    }
-
-    p {
-      color: ${(props) => props.theme['base-text']};
-      font-size: 0.875rem;
-    }
-  }
+  padding: 2.5rem;
+  border-radius: 6px;
 
   & + section {
     margin-top: 0.75rem;
   }
 `
 
-export const AddressWrapper = styled.div`
-  display: grid;
-  grid-template: repeat(4, 1fr) / 1fr 1.5fr 3.75rem;
-  gap: 1rem 0.75rem;
+const BaseHeader = styled.header`
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+
+  span {
+    color: ${(props) => props.theme['base-subtitle']};
+  }
+
+  p {
+    color: ${(props) => props.theme['base-text']};
+    font-size: 0.875rem;
+  }
+`
+
+export const AddressHeader = styled(BaseHeader)`
+  svg {
+    color: ${(props) => props.theme['yellow-dark']};
+  }
+`
+
+export const PaymentHeader = styled(BaseHeader)`
+  svg {
+    color: ${(props) => props.theme.purple};
+  }
+`
+
+export const Address = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
   input {
+    width: 100%;
     padding: 0.75rem;
     font-size: 0.875rem;
 
@@ -75,31 +79,51 @@ export const AddressWrapper = styled.div`
   }
 
   input[placeholder='CEP'] {
-    grid-area: 1 / 1 / 2 / 2;
-  }
-
-  input[placeholder='Rua'] {
-    grid-area: 2 / 1 / 3 / 4;
-  }
-
-  input[placeholder='Número'] {
-    grid-area: 3 / 1 / 4 / 2;
-  }
-
-  input[placeholder='Complemento'] {
-    grid-area: 3 / 2 / 4 / 4;
-  }
-
-  input[placeholder='Bairro'] {
-    grid-area: 4 / 1 / 5 / 2;
-  }
-
-  input[placeholder='Cidade'] {
-    grid-area: 4 / 2 / 5 / 3;
+    width: 12.5rem;
   }
 
   input[placeholder='UF'] {
-    grid-area: 4 / 3 / 5 / 4;
+    width: 3.75rem;
+  }
+`
+
+export const ComplementInputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+
+  span {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: ${(props) => props.theme['base-label']};
+
+    position: absolute;
+    top: 13px;
+    right: 12px;
+  }
+`
+
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  span {
+    font-size: 0.75rem;
+    color: ${(props) => props.theme.red};
+  }
+`
+
+export const GridContainer = styled.div`
+  display: grid;
+  grid-template: repeat(2, 1fr) / 12.5rem 17.25rem 3.75rem;
+  gap: 1rem 0.75rem;
+
+  div:has(input[placeholder='Número']) {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  div:has(input[placeholder='Complemento']) {
+    grid-area: 1 / 2 / 2 / 4;
   }
 `
 

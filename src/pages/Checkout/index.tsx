@@ -1,4 +1,7 @@
 import { useContext } from 'react'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
   Bank,
@@ -11,41 +14,62 @@ import {
 import { CoffeeContext } from '../../context/CoffeeContext'
 
 import { Cart } from './components/Cart'
+import InputMask from 'react-input-mask'
 import {
-  AddressWrapper,
+  Address,
   CheckoutContainer,
   PaymentWays,
-  InfoContainer,
+  Card,
   EmptyCart,
+  ComplementInputWrapper,
+  InputWrapper,
+  AddressHeader,
+  PaymentHeader,
+  GridContainer,
 } from './styles'
-import { useForm } from 'react-hook-form'
 
-enum PaymentWaysEnum {
-  creditCard = 'Cartão de Crédito',
-  debitCard = 'Cartão de Débito',
-  cash = 'Dinheiro',
-}
+const orderFormValidationSchema = zod.object({
+  CEP: zod
+    .string()
+    .min(9, 'Informe um CEP válido (XXXXX-XXX)')
+    .max(9, 'Informe um CEP válido (XXXXX-XXX)')
+    .regex(/\d{5}-\d{3}/, 'Formato inválido'),
+  street: zod.string().min(3, 'Informe a rua'),
+  houseNumber: zod
+    .number({
+      invalid_type_error: 'Informe o número da casa',
+    })
+    .int('Informe um número inteiro')
+    .positive('Informe um número positivo'),
+  complement: zod.string().optional(),
+  neighborhood: zod.string().min(3, 'Informe o bairro'),
+  city: zod.string().min(3, 'Informe a cidade'),
+  UF: zod.string().min(2, 'Informe o UF').max(2, 'Informe um UF válido'),
+  paymentWay: zod.enum([
+    'Cartão de Crédito',
+    'Cartão de Débito',
+    'Dinheiro',
+  ] as const),
+})
 
-interface FormProps {
-  CEP: string
-  street: string
-  houseNumber: number
-  complement: string
-  neighborhood: string
-  city: string
-  UF: string
-  paymentWay: PaymentWaysEnum
-}
+type OrderFormData = zod.infer<typeof orderFormValidationSchema>
 
 export function Checkout() {
   const { coffeeListCart } = useContext(CoffeeContext)
   const isCartEmpty = coffeeListCart.length === 0
 
-  const { register, handleSubmit } = useForm<FormProps>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm<OrderFormData>({
     defaultValues: {
-      paymentWay: PaymentWaysEnum.creditCard,
+      paymentWay: 'Cartão de Crédito',
     },
+    resolver: zodResolver(orderFormValidationSchema),
   })
+  const onSubmit: SubmitHandler<OrderFormData> = (data) => console.log(data)
 
   // isCartEmpty ? (
   //   <EmptyCart>
@@ -53,43 +77,74 @@ export function Checkout() {
   //   </EmptyCart>
   // ) :
   return (
-    <CheckoutContainer action="/success">
+    <CheckoutContainer onSubmit={handleSubmit(onSubmit)} action="/success">
       <div>
         <h4>Complete seu pedido</h4>
-        <InfoContainer iconColor="yellow-dark">
-          <header>
+        <Card>
+          <AddressHeader>
             <MapPinLine size={22} />
             <div>
               <span>Endereço de Entrega</span>
               <p>Informe o endereço onde deseja receber seu pedido</p>
             </div>
-          </header>
+          </AddressHeader>
 
-          <AddressWrapper>
-            <input type="text" placeholder="CEP" {...register('CEP')} />
-            <input type="text" placeholder="Rua" {...register('street')} />
-            <input
-              type="text"
-              placeholder="Número"
-              {...register('houseNumber')}
-            />
-            <input
-              type="text"
-              placeholder="Complemento"
-              {...register('complement')}
-            />
-            <input
-              type="text"
-              placeholder="Bairro"
-              {...register('neighborhood')}
-            />
-            <input type="text" placeholder="Cidade" {...register('city')} />
-            <input type="text" placeholder="UF" {...register('UF')} />
-          </AddressWrapper>
-        </InfoContainer>
+          <Address>
+            <InputWrapper>
+              <input type="text" placeholder="CEP" {...register('CEP')} />
+              {errors.CEP && <span>{errors.CEP.message}</span>}
+            </InputWrapper>
+            <InputWrapper>
+              <input type="text" placeholder="Rua" {...register('street')} />
+              {errors.street && <span>{errors.street.message}</span>}
+            </InputWrapper>
 
-        <InfoContainer iconColor="purple">
-          <header>
+            <GridContainer>
+              <InputWrapper>
+                <input
+                  type="number"
+                  placeholder="Número"
+                  {...register('houseNumber', { valueAsNumber: true })}
+                />
+                {errors.houseNumber && (
+                  <span>{errors.houseNumber.message}</span>
+                )}
+              </InputWrapper>
+              <ComplementInputWrapper>
+                <input
+                  type="text"
+                  placeholder="Complemento"
+                  {...register('complement')}
+                />
+                <span>Opcional</span>
+              </ComplementInputWrapper>
+
+              <InputWrapper>
+                <input
+                  type="text"
+                  placeholder="Bairro"
+                  {...register('neighborhood')}
+                />
+                {errors.neighborhood && (
+                  <span>{errors.neighborhood.message}</span>
+                )}
+              </InputWrapper>
+
+              <InputWrapper>
+                <input type="text" placeholder="Cidade" {...register('city')} />
+                {errors.city && <span>{errors.city.message}</span>}
+              </InputWrapper>
+
+              <InputWrapper>
+                <input type="text" placeholder="UF" {...register('UF')} />
+                {errors.UF && <span>{errors.UF.message}</span>}
+              </InputWrapper>
+            </GridContainer>
+          </Address>
+        </Card>
+
+        <Card>
+          <PaymentHeader>
             <CurrencyDollar size={22} />
             <div>
               <span>Pagamento</span>
@@ -97,7 +152,7 @@ export function Checkout() {
                 O pagamento é feito na entrega. Escolha a forma que deseja pagar
               </p>
             </div>
-          </header>
+          </PaymentHeader>
 
           <PaymentWays>
             <div>
@@ -127,7 +182,7 @@ export function Checkout() {
               <input type="radio" id="cash" {...register('paymentWay')} />
             </div>
           </PaymentWays>
-        </InfoContainer>
+        </Card>
       </div>
       <aside>
         <h4>Cafés selecionados</h4>
