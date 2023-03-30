@@ -24,6 +24,7 @@ import {
 } from './styles'
 import { RadioInput } from './components/RadioInput'
 import { AddressInputs } from './components/AddressInputs'
+import { useNavigate } from 'react-router-dom'
 
 const orderFormValidationSchema = zod.object({
   CEP: zod
@@ -56,8 +57,10 @@ const orderFormValidationSchema = zod.object({
 type OrderFormData = zod.infer<typeof orderFormValidationSchema>
 
 export function Checkout() {
-  const { coffeeListCart } = useContext(CoffeeContext)
+  const { order, confirmOrder, coffeeListCart } = useContext(CoffeeContext)
   const isCartEmpty = coffeeListCart.length === 0
+
+  const navigate = useNavigate()
 
   const orderForm = useForm<OrderFormData>({
     defaultValues: {
@@ -65,19 +68,18 @@ export function Checkout() {
     },
     resolver: zodResolver(orderFormValidationSchema),
   })
-  const onSubmit: SubmitHandler<OrderFormData> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<OrderFormData> = (data) => {
+    confirmOrder(data)
+    navigate('/success')
+  }
 
-  // isCartEmpty ? (
-  //   <EmptyCart>
-  //     <h1>Você não possui nenhum item no carrinho!</h1>
-  //   </EmptyCart>
-  // ) :
-  return (
+  return isCartEmpty ? (
+    <EmptyCart>
+      <h1>Você não possui nenhum item no carrinho!</h1>
+    </EmptyCart>
+  ) : (
     <FormProvider {...orderForm}>
-      <CheckoutContainer
-        onSubmit={orderForm.handleSubmit(onSubmit)}
-        action="/success"
-      >
+      <CheckoutContainer onSubmit={orderForm.handleSubmit(onSubmit)}>
         <div>
           <h4>Complete seu pedido</h4>
           <Card>

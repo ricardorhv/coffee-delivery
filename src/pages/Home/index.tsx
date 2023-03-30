@@ -52,7 +52,7 @@ export function Home() {
           </GroupItems>
         </div>
         <img src={coffeeDeliveryImg} alt="" />
-        {/* <Background /> */}
+        <Background />
       </IntroContainer>
 
       <CoffeeCatalog>

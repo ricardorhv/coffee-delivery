@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
 export interface Coffee {
@@ -17,12 +17,12 @@ export interface CoffeeCart extends Coffee {
 interface OrderInformation {
   CEP: string
   street: string
-  houseNumber: string
+  houseNumber: number
   complement?: string
   neighborhood: string
   city: string
   UF: string
-  paymentWays: 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro'
+  paymentWay: 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro'
 }
 
 interface Order {
@@ -35,11 +35,13 @@ interface Order {
 }
 
 interface CoffeeContextType {
+  order: Order
   coffeeListCart: CoffeeCart[]
   addCoffeeToTheCart: (data: CoffeeCart) => void
   removeCoffeeFromTheCart: (coffeeId: string) => void
   increaseQuantity: (coffeeId: string) => void
   decreaseQuantity: (coffeeId: string) => void
+  confirmOrder: (info: OrderInformation) => void
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextType)
@@ -51,7 +53,31 @@ interface CoffeeContextProviderProps {
 export function CoffeeContextProvider({
   children,
 }: CoffeeContextProviderProps) {
+  const [order, setOrder] = useState<Order>({
+    id: uuid(),
+    coffeeList: [],
+    info: {} as OrderInformation,
+    deliveryPrice: 3.5,
+    subtotal: 0,
+    total: 0,
+  })
   const [coffeeListCart, setCoffeeListCart] = useState<CoffeeCart[]>([])
+
+  useEffect(() => {
+    const getSubtotal = () =>
+      coffeeListCart.reduce((acc, item) => {
+        return acc + item.price * item.quantity
+      }, 0)
+
+    const getTotal = () => getSubtotal() + 3.5
+    setOrder((state) => {
+      return {
+        ...state,
+        subtotal: getSubtotal(),
+        total: getTotal(),
+      }
+    })
+  }, [coffeeListCart])
 
   function addCoffeeToTheCart(newCoffee: CoffeeCart) {
     const newCoffeeCart = {
@@ -65,7 +91,7 @@ export function CoffeeContextProvider({
     const newCoffeeListCart = coffeeListCart.filter(
       (coffee) => coffee.id !== coffeeId,
     )
-    setCoffeeListCart(newCoffeeListCart)
+    setCoffeeListCart(() => newCoffeeListCart)
   }
 
   function increaseQuantity(coffeeId: string) {
@@ -78,7 +104,7 @@ export function CoffeeContextProvider({
       }
       return coffeeCart
     })
-    setCoffeeListCart(newCoffeeListCart)
+    setCoffeeListCart(() => newCoffeeListCart)
   }
 
   function decreaseQuantity(coffeeId: string) {
@@ -91,17 +117,30 @@ export function CoffeeContextProvider({
       }
       return coffeeCart
     })
-    setCoffeeListCart(newCoffeeListCart)
+    setCoffeeListCart(() => newCoffeeListCart)
+  }
+
+  function confirmOrder(info: OrderInformation) {
+    setOrder((state) => {
+      return {
+        ...state,
+        info,
+        coffeeList: coffeeListCart,
+      }
+    })
+    setCoffeeListCart([])
   }
 
   return (
     <CoffeeContext.Provider
       value={{
-        coffeeListCart,
+        order,
         addCoffeeToTheCart,
         removeCoffeeFromTheCart,
         increaseQuantity,
         decreaseQuantity,
+        confirmOrder,
+        coffeeListCart,
       }}
     >
       {children}

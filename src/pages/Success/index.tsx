@@ -1,9 +1,15 @@
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
+import { useContext } from 'react'
 import illustration from '../../assets/Illustration.svg'
+import { CoffeeContext } from '../../context/CoffeeContext'
 
 import { Item, OrderInfo, SuccessContainer, Wrapper } from './styles'
 
 export function Success() {
+  const {
+    order: { info },
+  } = useContext(CoffeeContext)
+
   return (
     <SuccessContainer>
       <h1>Uhu! Pedido confirmado</h1>
@@ -17,9 +23,14 @@ export function Success() {
             </div>
             <div>
               <span>
-                Entrega em <strong>Rua João Daniel Martinelli, 102</strong>
+                Entrega em{' '}
+                <strong>
+                  {info.street}, {info.houseNumber}
+                </strong>
               </span>
-              <span>Farrapos - Porto Alegre, RS</span>
+              <span>
+                {info.neighborhood} - {info.city}, {info.UF}
+              </span>
             </div>
           </Item>
           <Item backgroundIcon="yellow">
@@ -37,7 +48,7 @@ export function Success() {
             </div>
             <div>
               <span>Pagamento na entrega</span>
-              <strong>Cartão de Crédito</strong>
+              <strong>{info.paymentWay}</strong>
             </div>
           </Item>
         </OrderInfo>

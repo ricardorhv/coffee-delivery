@@ -7,24 +7,21 @@ export const HeaderContainer = styled.header`
   align-items: center;
 
   padding: 2rem 0;
-
-  div {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
 `
 
-const BaseCard = styled(NavLink)`
+export const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+`
+
+export const Location = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 
   padding: 0.5rem;
   border-radius: 6px;
-`
-
-export const Location = styled(BaseCard)`
   background: ${(props) => props.theme['purple-light']};
   color: ${(props) => props.theme.purple};
   gap: 0.25rem;
@@ -33,7 +30,13 @@ export const Location = styled(BaseCard)`
   line-height: 0;
 `
 
-export const CartLink = styled(BaseCard)`
+export const CartLink = styled(NavLink)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.5rem;
+  border-radius: 6px;
   background: ${(props) => props.theme['yellow-light']};
   color: ${(props) => props.theme['yellow-dark']};
   position: relative;

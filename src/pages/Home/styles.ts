@@ -22,12 +22,13 @@ export const IntroContainer = styled.div`
 export const Background = styled.div`
   background: url(${backgroundIntro});
   background-size: cover;
+  width: 100vw;
 
   position: absolute;
   top: 0;
   bottom: 0;
-  left: calc((100vw - 70rem) / -2);
-  right: calc((100vw - 70rem) / -2);
+  left: min((100vw - 70rem) / -2, 0px);
+  /* right: calc((100vw - 70rem) / -2); */
   z-index: -1;
 `
 
