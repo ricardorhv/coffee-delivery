@@ -9,18 +9,12 @@ import { CartContainer, ConfirmOrderButton } from './styles'
 export function Cart() {
   const { coffeeListCart } = useContext(CoffeeContext)
 
-  function getSubtotal() {
-    const subtotal = coffeeListCart.reduce((acc, item) => {
+  const getSubtotal = () =>
+    coffeeListCart.reduce((acc, item) => {
       return acc + item.price * item.quantity
     }, 0)
-    return subtotal
-  }
 
-  function getTotal() {
-    const subtotal = getSubtotal()
-    const deliveryPrice = 3.5
-    return subtotal + deliveryPrice
-  }
+  const getTotal = () => getSubtotal() + 3.5
 
   const cartInfo = {
     deliveryPrice: 3.5,

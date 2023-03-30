@@ -24,13 +24,13 @@ export function CoffeeSelected({
 
   function handleIncreaseCounter() {
     setCounter((state) => state + 1)
-    increaseQuantity(id, counter)
+    increaseQuantity(id)
   }
 
   function handleDecreaseCounter() {
     if (counter !== 1) {
       setCounter((state) => state - 1)
-      decreaseQuantity(id, counter)
+      decreaseQuantity(id)
     }
   }
 

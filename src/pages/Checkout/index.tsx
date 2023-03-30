@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -14,19 +14,16 @@ import {
 import { CoffeeContext } from '../../context/CoffeeContext'
 
 import { Cart } from './components/Cart'
-import InputMask from 'react-input-mask'
 import {
-  Address,
   CheckoutContainer,
   PaymentWays,
   Card,
   EmptyCart,
-  ComplementInputWrapper,
-  InputWrapper,
   AddressHeader,
   PaymentHeader,
-  GridContainer,
 } from './styles'
+import { RadioInput } from './components/RadioInput'
+import { AddressInputs } from './components/AddressInputs'
 
 const orderFormValidationSchema = zod.object({
   CEP: zod
@@ -44,7 +41,11 @@ const orderFormValidationSchema = zod.object({
   complement: zod.string().optional(),
   neighborhood: zod.string().min(3, 'Informe o bairro'),
   city: zod.string().min(3, 'Informe a cidade'),
-  UF: zod.string().min(2, 'Informe o UF').max(2, 'Informe um UF válido'),
+  UF: zod
+    .string()
+    .min(2, 'Informe o UF')
+    .max(2, 'Informe um UF válido')
+    .toUpperCase(),
   paymentWay: zod.enum([
     'Cartão de Crédito',
     'Cartão de Débito',
@@ -58,12 +59,7 @@ export function Checkout() {
   const { coffeeListCart } = useContext(CoffeeContext)
   const isCartEmpty = coffeeListCart.length === 0
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm<OrderFormData>({
+  const orderForm = useForm<OrderFormData>({
     defaultValues: {
       paymentWay: 'Cartão de Crédito',
     },
@@ -77,117 +73,49 @@ export function Checkout() {
   //   </EmptyCart>
   // ) :
   return (
-    <CheckoutContainer onSubmit={handleSubmit(onSubmit)} action="/success">
-      <div>
-        <h4>Complete seu pedido</h4>
-        <Card>
-          <AddressHeader>
-            <MapPinLine size={22} />
-            <div>
-              <span>Endereço de Entrega</span>
-              <p>Informe o endereço onde deseja receber seu pedido</p>
-            </div>
-          </AddressHeader>
+    <FormProvider {...orderForm}>
+      <CheckoutContainer
+        onSubmit={orderForm.handleSubmit(onSubmit)}
+        action="/success"
+      >
+        <div>
+          <h4>Complete seu pedido</h4>
+          <Card>
+            <AddressHeader>
+              <MapPinLine size={22} />
+              <div>
+                <span>Endereço de Entrega</span>
+                <p>Informe o endereço onde deseja receber seu pedido</p>
+              </div>
+            </AddressHeader>
 
-          <Address>
-            <InputWrapper>
-              <input type="text" placeholder="CEP" {...register('CEP')} />
-              {errors.CEP && <span>{errors.CEP.message}</span>}
-            </InputWrapper>
-            <InputWrapper>
-              <input type="text" placeholder="Rua" {...register('street')} />
-              {errors.street && <span>{errors.street.message}</span>}
-            </InputWrapper>
+            <AddressInputs />
+          </Card>
 
-            <GridContainer>
-              <InputWrapper>
-                <input
-                  type="number"
-                  placeholder="Número"
-                  {...register('houseNumber', { valueAsNumber: true })}
-                />
-                {errors.houseNumber && (
-                  <span>{errors.houseNumber.message}</span>
-                )}
-              </InputWrapper>
-              <ComplementInputWrapper>
-                <input
-                  type="text"
-                  placeholder="Complemento"
-                  {...register('complement')}
-                />
-                <span>Opcional</span>
-              </ComplementInputWrapper>
+          <Card>
+            <PaymentHeader>
+              <CurrencyDollar size={22} />
+              <div>
+                <span>Pagamento</span>
+                <p>
+                  O pagamento é feito na entrega. Escolha a forma que deseja
+                  pagar
+                </p>
+              </div>
+            </PaymentHeader>
 
-              <InputWrapper>
-                <input
-                  type="text"
-                  placeholder="Bairro"
-                  {...register('neighborhood')}
-                />
-                {errors.neighborhood && (
-                  <span>{errors.neighborhood.message}</span>
-                )}
-              </InputWrapper>
-
-              <InputWrapper>
-                <input type="text" placeholder="Cidade" {...register('city')} />
-                {errors.city && <span>{errors.city.message}</span>}
-              </InputWrapper>
-
-              <InputWrapper>
-                <input type="text" placeholder="UF" {...register('UF')} />
-                {errors.UF && <span>{errors.UF.message}</span>}
-              </InputWrapper>
-            </GridContainer>
-          </Address>
-        </Card>
-
-        <Card>
-          <PaymentHeader>
-            <CurrencyDollar size={22} />
-            <div>
-              <span>Pagamento</span>
-              <p>
-                O pagamento é feito na entrega. Escolha a forma que deseja pagar
-              </p>
-            </div>
-          </PaymentHeader>
-
-          <PaymentWays>
-            <div>
-              <label htmlFor="credit-card">
-                <CreditCard size={16} />
-                <span>Cartão de Crédito</span>
-              </label>
-              <input
-                type="radio"
-                value="Cartão de Crédito"
-                id="credit-card"
-                {...register('paymentWay')}
-              />
-            </div>
-            <div>
-              <label htmlFor="debit-card">
-                <Bank size={16} />
-                <span>Cartão de Débito</span>
-              </label>
-              <input type="radio" id="debit-card" {...register('paymentWay')} />
-            </div>
-            <div>
-              <label htmlFor="cash">
-                <Money size={16} />
-                <span>Dinheiro</span>
-              </label>
-              <input type="radio" id="cash" {...register('paymentWay')} />
-            </div>
-          </PaymentWays>
-        </Card>
-      </div>
-      <aside>
-        <h4>Cafés selecionados</h4>
-        <Cart />
-      </aside>
-    </CheckoutContainer>
+            <PaymentWays>
+              <RadioInput inputID="credit-card" value="Cartão de Crédito" />
+              <RadioInput inputID="debit-card" value="Cartão de Débito" />
+              <RadioInput inputID="cash" value="Dinheiro" />
+            </PaymentWays>
+          </Card>
+        </div>
+        <aside>
+          <h4>Cafés selecionados</h4>
+          <Cart />
+        </aside>
+      </CheckoutContainer>
+    </FormProvider>
   )
 }

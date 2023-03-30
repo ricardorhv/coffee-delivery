@@ -14,9 +14,23 @@ export interface CoffeeCart extends Coffee {
   quantity: number
 }
 
-interface CartInfo {
-  subtotal: number
+interface OrderInformation {
+  CEP: string
+  street: string
+  houseNumber: string
+  complement?: string
+  neighborhood: string
+  city: string
+  UF: string
+  paymentWays: 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro'
+}
+
+interface Order {
+  id: string
+  coffeeList: CoffeeCart[]
+  info: OrderInformation
   deliveryPrice: number
+  subtotal: number
   total: number
 }
 
@@ -24,8 +38,8 @@ interface CoffeeContextType {
   coffeeListCart: CoffeeCart[]
   addCoffeeToTheCart: (data: CoffeeCart) => void
   removeCoffeeFromTheCart: (coffeeId: string) => void
-  increaseQuantity: (coffeeId: string, counter: number) => void
-  decreaseQuantity: (coffeeId: string, counter: number) => void
+  increaseQuantity: (coffeeId: string) => void
+  decreaseQuantity: (coffeeId: string) => void
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextType)
@@ -54,7 +68,7 @@ export function CoffeeContextProvider({
     setCoffeeListCart(newCoffeeListCart)
   }
 
-  function increaseQuantity(coffeeId: string, counter: number) {
+  function increaseQuantity(coffeeId: string) {
     const newCoffeeListCart = coffeeListCart.map((coffeeCart) => {
       if (coffeeCart.id === coffeeId) {
         return {
@@ -67,7 +81,7 @@ export function CoffeeContextProvider({
     setCoffeeListCart(newCoffeeListCart)
   }
 
-  function decreaseQuantity(coffeeId: string, counter: number) {
+  function decreaseQuantity(coffeeId: string) {
     const newCoffeeListCart = coffeeListCart.map((coffeeCart) => {
       if (coffeeCart.id === coffeeId) {
         return {
