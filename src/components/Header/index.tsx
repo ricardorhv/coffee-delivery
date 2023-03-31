@@ -6,9 +6,13 @@ import { useContext } from 'react'
 import { CoffeeContext } from '../../context/CoffeeContext'
 
 export function Header() {
-  const { coffeeListCart, order } = useContext(CoffeeContext)
-  const totalItemsIntoTheCart = coffeeListCart.length
-  const hasOrderedAlready = order.coffeeList.length !== 0
+  const {
+    cart: { selectedCoffeeList },
+    orders,
+  } = useContext(CoffeeContext)
+  const totalItemsIntoTheCart = selectedCoffeeList.length
+  const hasOrderedAlready = orders.length !== 0
+  const lastOrder = orders[orders.length - 1]
 
   return (
     <HeaderContainer>
@@ -20,7 +24,7 @@ export function Header() {
           <Location>
             <MapPin size={22} weight="fill" />
             <span>
-              {order.info.city}, {order.info.UF}
+              {lastOrder.info.city}, {lastOrder.info.UF}
             </span>
           </Location>
         )}

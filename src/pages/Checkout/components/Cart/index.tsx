@@ -8,15 +8,14 @@ import { CartContainer, ConfirmOrderButton } from './styles'
 
 export function Cart() {
   const {
-    order: { deliveryPrice, subtotal, total },
-    coffeeListCart,
+    cart: { deliveryPrice, subtotal, total, selectedCoffeeList },
   } = useContext(CoffeeContext)
 
   return (
     <CartContainer>
       <section>
-        {coffeeListCart.map((coffee) => (
-          <CoffeeSelected key={coffee.id} {...coffee} />
+        {selectedCoffeeList.map((selectedCoffee) => (
+          <CoffeeSelected key={selectedCoffee.id} {...selectedCoffee} />
         ))}
       </section>
       <footer>

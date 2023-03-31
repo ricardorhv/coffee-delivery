@@ -6,9 +6,9 @@ import { CoffeeContext } from '../../context/CoffeeContext'
 import { Item, OrderInfo, SuccessContainer, Wrapper } from './styles'
 
 export function Success() {
-  const {
-    order: { info },
-  } = useContext(CoffeeContext)
+  const { orders } = useContext(CoffeeContext)
+  const lastOrderIndex = orders.length - 1
+  const { info } = orders[lastOrderIndex]
 
   return (
     <SuccessContainer>

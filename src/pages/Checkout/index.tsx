@@ -57,8 +57,11 @@ const orderFormValidationSchema = zod.object({
 type OrderFormData = zod.infer<typeof orderFormValidationSchema>
 
 export function Checkout() {
-  const { order, confirmOrder, coffeeListCart } = useContext(CoffeeContext)
-  const isCartEmpty = coffeeListCart.length === 0
+  const {
+    createNewOrder,
+    cart: { selectedCoffeeList },
+  } = useContext(CoffeeContext)
+  const isCartEmpty = selectedCoffeeList.length === 0
 
   const navigate = useNavigate()
 
@@ -69,7 +72,7 @@ export function Checkout() {
     resolver: zodResolver(orderFormValidationSchema),
   })
   const onSubmit: SubmitHandler<OrderFormData> = (data) => {
-    confirmOrder(data)
+    createNewOrder(data)
     navigate('/success')
   }
 

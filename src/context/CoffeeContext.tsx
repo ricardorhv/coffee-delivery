@@ -14,7 +14,7 @@ export interface CoffeeCart extends Coffee {
   quantity: number
 }
 
-interface OrderInformation {
+interface FormDataType {
   CEP: string
   street: string
   houseNumber: number
@@ -25,23 +25,26 @@ interface OrderInformation {
   paymentWay: 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro'
 }
 
-interface Order {
-  id: string
-  coffeeList: CoffeeCart[]
-  info: OrderInformation
+interface Cart {
+  selectedCoffeeList: CoffeeCart[]
   deliveryPrice: number
   subtotal: number
   total: number
 }
 
+interface Order extends Cart {
+  id: string
+  info: FormDataType
+}
+
 interface CoffeeContextType {
-  order: Order
-  coffeeListCart: CoffeeCart[]
+  orders: Order[]
+  cart: Cart
   addCoffeeToTheCart: (data: CoffeeCart) => void
   removeCoffeeFromTheCart: (coffeeId: string) => void
   increaseQuantity: (coffeeId: string) => void
   decreaseQuantity: (coffeeId: string) => void
-  confirmOrder: (info: OrderInformation) => void
+  createNewOrder: (formData: FormDataType) => void
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextType)
@@ -53,94 +56,118 @@ interface CoffeeContextProviderProps {
 export function CoffeeContextProvider({
   children,
 }: CoffeeContextProviderProps) {
-  const [order, setOrder] = useState<Order>({
-    id: uuid(),
-    coffeeList: [],
-    info: {} as OrderInformation,
-    deliveryPrice: 3.5,
+  const deliveryPrice = 3.5
+  const [orders, setOrders] = useState<Order[]>([])
+  const [cart, setCart] = useState<Cart>({
+    selectedCoffeeList: [],
+    deliveryPrice,
     subtotal: 0,
     total: 0,
   })
-  const [coffeeListCart, setCoffeeListCart] = useState<CoffeeCart[]>([])
+  const { selectedCoffeeList } = cart
 
   useEffect(() => {
     const getSubtotal = () =>
-      coffeeListCart.reduce((acc, item) => {
+      selectedCoffeeList.reduce((acc, item) => {
         return acc + item.price * item.quantity
       }, 0)
 
-    const getTotal = () => getSubtotal() + 3.5
-    setOrder((state) => {
+    const getTotal = () => getSubtotal() + deliveryPrice
+    setCart((state) => {
       return {
         ...state,
         subtotal: getSubtotal(),
         total: getTotal(),
       }
     })
-  }, [coffeeListCart])
+  }, [selectedCoffeeList])
 
   function addCoffeeToTheCart(newCoffee: CoffeeCart) {
-    const newCoffeeCart = {
+    const newCoffeeSelected = {
       ...newCoffee,
       id: uuid(),
     }
-    setCoffeeListCart((state) => [...state, newCoffeeCart])
+    setCart((state) => {
+      return {
+        ...state,
+        selectedCoffeeList: [...state.selectedCoffeeList, newCoffeeSelected],
+      }
+    })
   }
 
   function removeCoffeeFromTheCart(coffeeId: string) {
-    const newCoffeeListCart = coffeeListCart.filter(
-      (coffee) => coffee.id !== coffeeId,
-    )
-    setCoffeeListCart(() => newCoffeeListCart)
+    setCart((state) => {
+      return {
+        ...state,
+        selectedCoffeeList: state.selectedCoffeeList.filter(
+          (coffee) => coffee.id !== coffeeId,
+        ),
+      }
+    })
   }
 
   function increaseQuantity(coffeeId: string) {
-    const newCoffeeListCart = coffeeListCart.map((coffeeCart) => {
-      if (coffeeCart.id === coffeeId) {
-        return {
-          ...coffeeCart,
-          quantity: coffeeCart.quantity + 1,
-        }
+    setCart((state) => {
+      return {
+        ...state,
+        selectedCoffeeList: state.selectedCoffeeList.map((selectedCoffee) => {
+          if (selectedCoffee.id === coffeeId) {
+            return {
+              ...selectedCoffee,
+              quantity: selectedCoffee.quantity + 1,
+            }
+          } else {
+            return selectedCoffee
+          }
+        }),
       }
-      return coffeeCart
     })
-    setCoffeeListCart(() => newCoffeeListCart)
   }
 
   function decreaseQuantity(coffeeId: string) {
-    const newCoffeeListCart = coffeeListCart.map((coffeeCart) => {
-      if (coffeeCart.id === coffeeId) {
-        return {
-          ...coffeeCart,
-          quantity: coffeeCart.quantity - 1,
-        }
-      }
-      return coffeeCart
-    })
-    setCoffeeListCart(() => newCoffeeListCart)
-  }
-
-  function confirmOrder(info: OrderInformation) {
-    setOrder((state) => {
+    setCart((state) => {
       return {
         ...state,
-        info,
-        coffeeList: coffeeListCart,
+        selectedCoffeeList: state.selectedCoffeeList.map((selectedCoffee) => {
+          if (selectedCoffee.id === coffeeId) {
+            return {
+              ...selectedCoffee,
+              quantity: selectedCoffee.quantity - 1,
+            }
+          } else {
+            return selectedCoffee
+          }
+        }),
       }
     })
-    setCoffeeListCart([])
+  }
+
+  function createNewOrder(formData: FormDataType) {
+    const newOrder = {
+      id: uuid(),
+      info: formData,
+      ...cart,
+    }
+
+    setOrders((state) => [...state, newOrder])
+    setCart({
+      selectedCoffeeList: [],
+      deliveryPrice: 3.5,
+      subtotal: 0,
+      total: 0,
+    })
   }
 
   return (
     <CoffeeContext.Provider
       value={{
-        order,
+        orders,
         addCoffeeToTheCart,
         removeCoffeeFromTheCart,
         increaseQuantity,
         decreaseQuantity,
-        confirmOrder,
-        coffeeListCart,
+        createNewOrder,
+        cart,
       }}
     >
       {children}
