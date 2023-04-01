@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const CoffeeCardContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-direction: column;
 
   padding: 1.25rem;

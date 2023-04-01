@@ -59,9 +59,10 @@ type OrderFormData = zod.infer<typeof orderFormValidationSchema>
 export function Checkout() {
   const {
     createNewOrder,
-    cart: { selectedCoffeeList },
+    cartState: { selectedCoffeeList },
   } = useContext(CoffeeContext)
   const isCartEmpty = selectedCoffeeList.length === 0
+  console.log(selectedCoffeeList)
 
   const navigate = useNavigate()
 

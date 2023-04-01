@@ -8,8 +8,9 @@ import {
 } from './styles'
 
 import { Counter } from '../../../../components/Counter'
-import { CoffeeCart, CoffeeContext } from '../../../../context/CoffeeContext'
+import { CoffeeContext } from '../../../../context/CoffeeContext'
 import { formatNumber } from '../../../../utils/format-number'
+import { CoffeeCart } from '../../../../reducers/cart/reducer'
 
 export function CoffeeSelected({
   name,
@@ -18,7 +19,7 @@ export function CoffeeSelected({
   quantity,
   id,
 }: CoffeeCart) {
-  const [counter, setCounter] = useState(quantity)
+  const [counter, setCounter] = useState<number>(quantity)
   const { removeCoffeeFromTheCart, increaseQuantity, decreaseQuantity } =
     useContext(CoffeeContext)
 

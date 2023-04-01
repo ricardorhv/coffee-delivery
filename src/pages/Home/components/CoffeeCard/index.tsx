@@ -4,9 +4,10 @@ import { ShoppingCart } from 'phosphor-react'
 import { Buy, CartButton, CoffeeCardContainer, TagList } from './styles'
 
 import { formatNumber } from '../../../../utils/format-number'
-import { Coffee, CoffeeContext } from '../../../../context/CoffeeContext'
+import { CoffeeContext } from '../../../../context/CoffeeContext'
 
 import { Counter } from '../../../../components/Counter'
+import { Coffee } from '../../../../reducers/cart/reducer'
 
 export function CoffeeCard({
   id,

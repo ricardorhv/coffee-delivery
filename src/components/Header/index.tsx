@@ -7,7 +7,7 @@ import { CoffeeContext } from '../../context/CoffeeContext'
 
 export function Header() {
   const {
-    cart: { selectedCoffeeList },
+    cartState: { selectedCoffeeList },
     orders,
   } = useContext(CoffeeContext)
   const totalItemsIntoTheCart = selectedCoffeeList.length

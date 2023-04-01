@@ -8,7 +8,7 @@ import { CartContainer, ConfirmOrderButton } from './styles'
 
 export function Cart() {
   const {
-    cart: { deliveryPrice, subtotal, total, selectedCoffeeList },
+    cartState: { deliveryPrice, subtotal, total, selectedCoffeeList },
   } = useContext(CoffeeContext)
 
   return (
