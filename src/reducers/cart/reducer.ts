@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid'
 import { ActionTypes } from './actions'
+import { produce } from 'immer'
 
 export interface Coffee {
   id: string
@@ -26,51 +27,51 @@ export const DELIVERY_PRICE = 3.5
 export function cartReducer(state: Cart, action: any) {
   switch (action.type) {
     case ActionTypes.ADD_COFFEE_TO_THE_CART: {
-      return {
-        ...state,
-        selectedCoffeeList: [
-          ...state.selectedCoffeeList,
-          action.payload.newCoffee,
-        ],
-      }
+      return produce(state, (draft) => {
+        draft.selectedCoffeeList.push(action.payload.newCoffee)
+      })
     }
     case ActionTypes.REMOVE_COFFEE_FROM_THE_CART: {
-      return {
-        ...state,
-        selectedCoffeeList: state.selectedCoffeeList.filter(
-          (coffee) => coffee.id !== action.payload.selectedCoffeeId,
-        ),
+      const selectedCoffeeId = state.selectedCoffeeList.findIndex(
+        (selectedCoffee) =>
+          selectedCoffee.id === action.payload.selectedCoffeeId,
+      )
+
+      if (selectedCoffeeId < 0) {
+        return state
       }
+
+      return produce(state, (draft) => {
+        draft.selectedCoffeeList.splice(selectedCoffeeId, 1)
+      })
     }
     case ActionTypes.INCREASE_QUANTITY_OF_SELECTED_COFFEE: {
-      return {
-        ...state,
-        selectedCoffeeList: state.selectedCoffeeList.map((selectedCoffee) => {
-          if (selectedCoffee.id === action.payload.selectedCoffeeId) {
-            return {
-              ...selectedCoffee,
-              quantity: selectedCoffee.quantity + 1,
-            }
-          } else {
-            return selectedCoffee
-          }
-        }),
+      const selectedCoffeeId = state.selectedCoffeeList.findIndex(
+        (selectedCoffee) =>
+          selectedCoffee.id === action.payload.selectedCoffeeId,
+      )
+
+      if (selectedCoffeeId < 0) {
+        return state
       }
+
+      return produce(state, (draft) => {
+        draft.selectedCoffeeList[selectedCoffeeId].quantity += 1
+      })
     }
     case ActionTypes.DECREASE_QUANTITY_OF_SELECTED_COFFEE: {
-      return {
-        ...state,
-        selectedCoffeeList: state.selectedCoffeeList.map((selectedCoffee) => {
-          if (selectedCoffee.id === action.payload.selectedCoffeeId) {
-            return {
-              ...selectedCoffee,
-              quantity: selectedCoffee.quantity - 1,
-            }
-          } else {
-            return selectedCoffee
-          }
-        }),
+      const selectedCoffeeId = state.selectedCoffeeList.findIndex(
+        (selectedCoffee) =>
+          selectedCoffee.id === action.payload.selectedCoffeeId,
+      )
+
+      if (selectedCoffeeId < 0) {
+        return state
       }
+
+      return produce(state, (draft) => {
+        draft.selectedCoffeeList[selectedCoffeeId].quantity -= 1
+      })
     }
     case ActionTypes.CALCULATE_TOTAL: {
       const subtotal = state.selectedCoffeeList.reduce((acc, item) => {
@@ -79,17 +80,15 @@ export function cartReducer(state: Cart, action: any) {
 
       const total = subtotal + DELIVERY_PRICE
 
-      return {
-        ...state,
-        subtotal,
-        total,
-      }
+      return produce(state, (draft) => {
+        draft.subtotal = subtotal
+        draft.total = total
+      })
     }
     case ActionTypes.RESET_CART: {
-      return {
-        ...state,
-        selectedCoffeeList: [],
-      }
+      return produce(state, (draft) => {
+        draft.selectedCoffeeList = []
+      })
     }
     default: {
       return state

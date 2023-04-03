@@ -101,8 +101,6 @@ export function CoffeeContextProvider({
     }
 
     setOrders((state) => [...state, newOrder])
-    console.log(orders)
-
     resetCart()
   }
 
