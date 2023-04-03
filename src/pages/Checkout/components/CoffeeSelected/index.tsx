@@ -51,7 +51,10 @@ export function CoffeeSelected({
               handleDecreaseCounter={handleDecreaseCounter}
               handleIncreaseCounter={handleIncreaseCounter}
             />
-            <RemoveCoffeeFromCartButton onClick={handleRemoveCoffee}>
+            <RemoveCoffeeFromCartButton
+              type="button"
+              onClick={handleRemoveCoffee}
+            >
               <Trash size={16} />
               <span>Remover</span>
             </RemoveCoffeeFromCartButton>

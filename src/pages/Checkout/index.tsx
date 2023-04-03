@@ -62,7 +62,6 @@ export function Checkout() {
     cartState: { selectedCoffeeList },
   } = useContext(CoffeeContext)
   const isCartEmpty = selectedCoffeeList.length === 0
-  console.log(selectedCoffeeList)
 
   const navigate = useNavigate()
 
@@ -72,7 +71,10 @@ export function Checkout() {
     },
     resolver: zodResolver(orderFormValidationSchema),
   })
-  const onSubmit: SubmitHandler<OrderFormData> = (data) => {
+
+  const { handleSubmit } = orderForm
+
+  const onSubmit: SubmitHandler<OrderFormData> = (data, e) => {
     createNewOrder(data)
     navigate('/success')
   }
@@ -82,10 +84,10 @@ export function Checkout() {
       <h1>Você não possui nenhum item no carrinho!</h1>
     </EmptyCart>
   ) : (
-    <FormProvider {...orderForm}>
-      <CheckoutContainer onSubmit={orderForm.handleSubmit(onSubmit)}>
-        <div>
-          <h4>Complete seu pedido</h4>
+    <CheckoutContainer action="" onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <h4>Complete seu pedido</h4>
+        <FormProvider {...orderForm}>
           <Card>
             <AddressHeader>
               <MapPinLine size={22} />
@@ -116,12 +118,12 @@ export function Checkout() {
               <RadioInput inputID="cash" value="Dinheiro" />
             </PaymentWays>
           </Card>
-        </div>
-        <aside>
-          <h4>Cafés selecionados</h4>
-          <Cart />
-        </aside>
-      </CheckoutContainer>
-    </FormProvider>
+        </FormProvider>
+      </div>
+      <aside>
+        <h4>Cafés selecionados</h4>
+        <Cart />
+      </aside>
+    </CheckoutContainer>
   )
 }
