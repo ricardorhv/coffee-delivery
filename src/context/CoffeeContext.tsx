@@ -37,6 +37,8 @@ export interface Order extends Cart {
   info: FormDataType
 }
 
+type ThemeProps = 'light' | 'dark'
+
 interface CoffeeContextType {
   orders: Order[]
   cartState: Cart
@@ -45,6 +47,8 @@ interface CoffeeContextType {
   increaseQuantity: (coffeeId: string) => void
   decreaseQuantity: (coffeeId: string) => void
   createNewOrder: (formData: FormDataType) => void
+  switchCurrentTheme: (newTheme: ThemeProps) => void
+  isLightTheCurrentTheme: boolean
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextType)
@@ -64,6 +68,9 @@ export function CoffeeContextProvider({
   })
   const [orders, setOrders] = useState<Order[]>([])
   const { selectedCoffeeList } = cartState
+
+  const [currentTheme, setCurrentTheme] = useState<ThemeProps>('light')
+  const isLightTheCurrentTheme = currentTheme === 'light'
 
   useEffect(() => {
     dispatch(calculateTotal())
@@ -104,6 +111,11 @@ export function CoffeeContextProvider({
     resetCart()
   }
 
+  function switchCurrentTheme(newTheme: ThemeProps) {
+    setCurrentTheme(newTheme)
+  }
+  console.log(currentTheme)
+
   return (
     <CoffeeContext.Provider
       value={{
@@ -114,6 +126,8 @@ export function CoffeeContextProvider({
         decreaseQuantity,
         createNewOrder,
         cartState,
+        switchCurrentTheme,
+        isLightTheCurrentTheme,
       }}
     >
       {children}

@@ -9,6 +9,31 @@ export const HeaderContainer = styled.header`
   padding: 2rem 0;
 `
 
+export const ThemeSwitcherButton = styled.button<{
+  isLightTheCurrentTheme: boolean
+}>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.5rem;
+  border-radius: 6px;
+  background: ${(props) =>
+    props.isLightTheCurrentTheme
+      ? props.theme['yellow-light']
+      : props.theme['purple-light']};
+  color: ${(props) =>
+    props.isLightTheCurrentTheme
+      ? props.theme['yellow-dark']
+      : props.theme['purple-dark']};
+
+  transition: filter 0.4s;
+
+  :hover {
+    filter: brightness(0.9);
+  }
+`
+
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -23,11 +48,15 @@ export const Location = styled.div`
   padding: 0.5rem;
   border-radius: 6px;
   background: ${(props) => props.theme['purple-light']};
-  color: ${(props) => props.theme.purple};
+  color: ${(props) => props.theme['purple-dark']};
   gap: 0.25rem;
 
   text-decoration: none;
   line-height: 0;
+
+  svg {
+    color: ${(props) => props.theme.purple};
+  }
 `
 
 export const CartLink = styled(NavLink)`

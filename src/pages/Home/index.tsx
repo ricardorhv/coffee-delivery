@@ -31,17 +31,17 @@ export function Home() {
               </div>
               <span>Compra simples e segura</span>
             </Item>
-            <Item gridArea="2 / 1 / 3 / 2" backgroundIcon="yellow">
-              <div>
-                <Timer size={16} weight="fill" />
-              </div>
-              <span>Entrega rápida e rastreada</span>
-            </Item>
             <Item gridArea="1 / 2  / 2 / 3" backgroundIcon="base-text">
               <div>
                 <Package size={16} weight="fill" />
               </div>
               <span>Embalagem mantém o café intacto</span>
+            </Item>
+            <Item gridArea="2 / 1 / 3 / 2" backgroundIcon="yellow">
+              <div>
+                <Timer size={16} weight="fill" />
+              </div>
+              <span>Entrega rápida e rastreada</span>
             </Item>
             <Item gridArea="2 / 2 / 3 / 3" backgroundIcon="purple">
               <div>

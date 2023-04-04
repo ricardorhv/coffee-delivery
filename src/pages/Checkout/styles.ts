@@ -13,6 +13,12 @@ export const CheckoutContainer = styled.form`
     font-weight: 700;
     margin-bottom: 0.9375rem;
   }
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    row-gap: 2rem;
+  }
 `
 
 export const Card = styled.section`
@@ -60,8 +66,10 @@ export const PaymentWays = styled.footer`
 
 export const EmptyCart = styled.div`
   width: 100%;
+  height: 100vh;
   padding: 10rem 0;
 
   display: flex;
   justify-content: center;
+  text-align: center;
 `

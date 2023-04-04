@@ -1,17 +1,19 @@
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-import { CoffeeContextProvider } from './context/CoffeeContext'
+import { CoffeeContext, CoffeeContextProvider } from './context/CoffeeContext'
 import { Router } from './Router'
 import { GlobalStyle } from './styles/global'
-import { defaultTheme } from './styles/themes/default'
+import { lightTheme } from './styles/themes/light'
+import { darkTheme } from './styles/themes/dark'
+import { useContext } from 'react'
 
 export function App() {
+  const { isLightTheCurrentTheme } = useContext(CoffeeContext)
+
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={isLightTheCurrentTheme ? lightTheme : darkTheme}>
       <BrowserRouter>
-        <CoffeeContextProvider>
-          <Router />
-        </CoffeeContextProvider>
+        <Router />
       </BrowserRouter>
       <GlobalStyle />
     </ThemeProvider>

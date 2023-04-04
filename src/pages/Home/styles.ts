@@ -17,6 +17,12 @@ export const IntroContainer = styled.div`
   p {
     font-size: 1.25;
   }
+
+  @media (max-width: 850px) {
+    img {
+      display: none;
+    }
+  }
 `
 
 export const Background = styled.div`
@@ -28,7 +34,6 @@ export const Background = styled.div`
   top: 0;
   bottom: 0;
   left: min((100vw - 70rem) / -2, 0px);
-  /* right: calc((100vw - 70rem) / -2); */
   z-index: -1;
 `
 
@@ -39,6 +44,11 @@ export const GroupItems = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   row-gap: 1.25rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
 `
 
 interface ItemProps {
@@ -51,7 +61,7 @@ export const Item = styled.div<ItemProps>`
   align-items: center;
   gap: 0.75rem;
 
-  grid-area: ${(props) => props.gridArea};
+  /* grid-area: ${(props) => props.gridArea}; */
 
   div {
     background: ${(props) => props.theme[props.backgroundIcon]};
@@ -84,7 +94,11 @@ export const CoffeeList = styled.div`
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (max-width: 850px) {
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 525px) {
     grid-template-columns: repeat(1, 1fr);
   }
 

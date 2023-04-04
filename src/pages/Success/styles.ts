@@ -15,6 +15,12 @@ export const SuccessContainer = styled.div`
     font-size: 1.25rem;
     color: ${(props) => props.theme['base-subtitle']};
   }
+
+  @media (max-width: 850px) {
+    img {
+      display: none;
+    }
+  }
 `
 
 export const Wrapper = styled.div`
@@ -27,6 +33,7 @@ export const Wrapper = styled.div`
 `
 
 export const OrderInfo = styled.section`
+  width: 100%;
   border: 1px solid transparent;
   border-radius: 6px 36px;
 

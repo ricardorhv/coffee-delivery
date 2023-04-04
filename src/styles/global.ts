@@ -16,6 +16,8 @@ export const GlobalStyle = createGlobalStyle`
 
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+
+    transition: all 0.4s;
   }
 
   body, input, text-area, button {
@@ -31,5 +33,11 @@ export const GlobalStyle = createGlobalStyle`
     outline: none;
     border: none;
     cursor: pointer;
+  }
+
+  @media (max-width: 850px) {
+    html {
+      font-size: 14px;
+    }
   }
 `

@@ -73,4 +73,40 @@ export const GridContainer = styled.div`
   div:has(input[placeholder='Complemento']) {
     grid-area: 1 / 2 / 2 / 4;
   }
+
+  @media (max-width: 580px) {
+    grid-template: repeat(3, 1fr) / 12.5rem 1fr 3.75rem;
+
+    div:has(input[placeholder='Bairro']) {
+      grid-area: 2 / 1 / 3 / 4;
+    }
+
+    div:has(input[placeholder='Cidade']) {
+      grid-area: 3 / 1 / 4 / 3;
+    }
+  }
+
+  @media (max-width: 440px) {
+    grid-template: repeat(4, 1fr) / 12.5rem 1fr 3.75rem;
+
+    div:has(input[placeholder='Número']) {
+      grid-area: 1 / 1 / 2 / 4;
+    }
+
+    div:has(input[placeholder='Complemento']) {
+      grid-area: 2 / 1 / 3 / 4;
+    }
+
+    div:has(input[placeholder='Bairro']) {
+      grid-area: 3 / 1 / 4 / 4;
+    }
+
+    div:has(input[placeholder='Cidade']) {
+      grid-area: 4 / 1 / 5 / 3;
+    }
+
+    div:has(input[placeholder='UF']) {
+      grid-area: 4 / 3 / 5 / 4;
+    }
+  }
 `

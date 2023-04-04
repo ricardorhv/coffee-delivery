@@ -3,12 +3,12 @@ import styled from 'styled-components'
 export const CoffeeSelectedContainer = styled.div`
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   gap: 3.125rem;
 
   padding: 0.5rem 0.25rem 2rem;
 
   border-bottom: 1px solid ${(props) => props.theme['base-button']};
-  /* margin-bottom: 1.5rem; */
 `
 
 export const Info = styled.div`
