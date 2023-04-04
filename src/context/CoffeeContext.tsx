@@ -69,8 +69,16 @@ export function CoffeeContextProvider({
   const [orders, setOrders] = useState<Order[]>([])
   const { selectedCoffeeList } = cartState
 
-  const [currentTheme, setCurrentTheme] = useState<ThemeProps>('light')
+  const storedTheme = localStorage?.getItem('theme') ?? 'light'
+
+  const [currentTheme, setCurrentTheme] = useState<ThemeProps>(
+    storedTheme as ThemeProps,
+  )
   const isLightTheCurrentTheme = currentTheme === 'light'
+
+  useEffect(() => {
+    localStorage.setItem('theme', currentTheme)
+  }, [currentTheme])
 
   useEffect(() => {
     dispatch(calculateTotal())
@@ -114,7 +122,6 @@ export function CoffeeContextProvider({
   function switchCurrentTheme(newTheme: ThemeProps) {
     setCurrentTheme(newTheme)
   }
-  console.log(currentTheme)
 
   return (
     <CoffeeContext.Provider
