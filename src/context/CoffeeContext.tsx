@@ -60,12 +60,26 @@ interface CoffeeContextProviderProps {
 export function CoffeeContextProvider({
   children,
 }: CoffeeContextProviderProps) {
-  const [cartState, dispatch] = useReducer(cartReducer, {
-    selectedCoffeeList: [],
-    deliveryPrice: DELIVERY_PRICE,
-    subtotal: 0,
-    total: 0,
-  })
+  const [cartState, dispatch] = useReducer(
+    cartReducer,
+    {
+      selectedCoffeeList: [],
+      deliveryPrice: DELIVERY_PRICE,
+      subtotal: 0,
+      total: 0,
+    },
+    (initialState) => {
+      const storedStateAsJSON = localStorage.getItem(
+        '@coffee-delivery:cart-state-1.0.0',
+      )
+      if (storedStateAsJSON) {
+        return JSON.parse(storedStateAsJSON)
+      }
+
+      return initialState
+    },
+  )
+
   const [orders, setOrders] = useState<Order[]>([])
   const { selectedCoffeeList } = cartState
 
@@ -83,6 +97,12 @@ export function CoffeeContextProvider({
   useEffect(() => {
     dispatch(calculateTotal())
   }, [selectedCoffeeList])
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cartState)
+
+    localStorage.setItem('@coffee-delivery:cart-state-1.0.0', stateJSON)
+  }, [cartState])
 
   function addCoffeeToTheCart(data: CoffeeCart) {
     const newCoffee = {
