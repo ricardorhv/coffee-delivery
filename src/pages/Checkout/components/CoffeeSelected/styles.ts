@@ -4,7 +4,7 @@ export const CoffeeSelectedContainer = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 3.125rem;
+  gap: 0.5rem;
 
   padding: 0.5rem 0.25rem 2rem;
 

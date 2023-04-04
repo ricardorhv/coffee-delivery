@@ -62,6 +62,10 @@ export const PaymentWays = styled.footer`
   display: flex;
   align-items: center;
   gap: 0.75rem;
+
+  @media (max-width: 580px) {
+    flex-direction: column;
+  }
 `
 
 export const EmptyCart = styled.div`

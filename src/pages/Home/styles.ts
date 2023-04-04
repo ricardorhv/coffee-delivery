@@ -61,8 +61,6 @@ export const Item = styled.div<ItemProps>`
   align-items: center;
   gap: 0.75rem;
 
-  /* grid-area: ${(props) => props.gridArea}; */
-
   div {
     background: ${(props) => props.theme[props.backgroundIcon]};
     color: ${(props) => props.theme.background};

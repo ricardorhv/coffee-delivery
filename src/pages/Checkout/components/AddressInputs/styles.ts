@@ -63,7 +63,7 @@ export const InputWrapper = styled.div`
 
 export const GridContainer = styled.div`
   display: grid;
-  grid-template: repeat(2, 1fr) / 12.5rem 17.25rem 3.75rem;
+  grid-template: repeat(2, 1fr) / 12.5rem 1fr 3.75rem;
   gap: 1rem 0.75rem;
 
   div:has(input[placeholder='Número']) {
