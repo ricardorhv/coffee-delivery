@@ -102,3 +102,14 @@ export const CoffeeList = styled.div`
 
   margin-top: 3.375rem;
 `
+
+export const HeaderCatalog = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+export const FilterByCategory = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`
