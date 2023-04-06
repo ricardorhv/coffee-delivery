@@ -1,12 +1,13 @@
 import { v4 as uuid } from 'uuid'
 import { ActionTypes } from './actions'
 import { produce } from 'immer'
+import { CategoryType } from '../../context/FilterContext'
 
 export interface Coffee {
   id: string
   name: string
   description: string
-  tags: string[]
+  tags: CategoryType[]
   price: number
   coffeeImage: string
 }

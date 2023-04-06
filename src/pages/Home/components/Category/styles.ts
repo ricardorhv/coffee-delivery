@@ -19,7 +19,7 @@ export const CategoryContainer = styled.div`
 
   &:has(input[type='checkbox']:checked) {
     background: ${(props) => props.theme['yellow-dark']};
-    color: ${(props) => props.theme.white};
+    color: ${(props) => props.theme['base-text']};
   }
 
   label {
@@ -34,5 +34,13 @@ export const CategoryContainer = styled.div`
     font-weight: 700;
 
     cursor: pointer;
+  }
+
+  input[type='checkbox']:disabled + label {
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    color: ${(props) => props.theme['yellow-dark']};
   }
 `

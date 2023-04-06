@@ -15,15 +15,15 @@ import mocaccinoImg from '../assets/Mocaccino.png'
 
 import { v4 as uuid } from 'uuid'
 
-const coffeePrice = 9.9
+const COFFEE_PRICE = 9.9
 
-export const coffeeCatalog = [
+export const coffeeData = [
   {
     id: uuid(),
     name: 'Expresso Tradicional',
     description: 'O tradicional café feito com água quente e grãos moídos',
     tags: ['Tradicional'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: expressoImg,
   },
   {
@@ -31,7 +31,7 @@ export const coffeeCatalog = [
     name: 'Expresso Americano',
     description: 'Expresso diluído, menos intenso que o tradicional',
     tags: ['Tradicional'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: americanoImg,
   },
   {
@@ -39,7 +39,7 @@ export const coffeeCatalog = [
     name: 'Expresso Cremoso',
     description: 'Café expresso tradicional com espuma cremosa',
     tags: ['Tradicional'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: expressoCremosoImg,
   },
   {
@@ -47,7 +47,7 @@ export const coffeeCatalog = [
     name: 'Expresso Gelado',
     description: 'Bebida preparada com café expresso e cubos de gelo',
     tags: ['Tradicional', 'Gelado'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: coffeeGeladoImg,
   },
   {
@@ -55,7 +55,7 @@ export const coffeeCatalog = [
     name: 'Café com Leite',
     description: 'Meio a meio de expresso tradicional com leite vaporizado',
     tags: ['Tradicional', 'Com leite'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: coffeeWithMilkImg,
   },
   {
@@ -64,7 +64,7 @@ export const coffeeCatalog = [
     description:
       'Uma dose de café expresso com o dobro de leite e espuma cremosa',
     tags: ['Tradicional', 'Com leite'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: latteImg,
   },
   {
@@ -73,7 +73,7 @@ export const coffeeCatalog = [
     description:
       'Bebida com canela feita de doses iguais de café, leite e espuma',
     tags: ['Tradicional', 'Com leite'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: capuccinoImg,
   },
   {
@@ -82,7 +82,7 @@ export const coffeeCatalog = [
     description:
       'Café expresso misturado com um pouco de leite quente e espuma',
     tags: ['Tradicional', 'Com leite'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: macchiatoImg,
   },
   {
@@ -90,7 +90,7 @@ export const coffeeCatalog = [
     name: 'Mocaccino',
     description: 'Café expresso com calda de chocolate, pouco leite e espuma',
     tags: ['Tradicional', 'Com leite'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: mocaccinoImg,
   },
   {
@@ -98,7 +98,7 @@ export const coffeeCatalog = [
     name: 'Chocolate Quente',
     description: 'Bebida feita com chocolate dissolvido no leite quente e café',
     tags: ['Tradicional', 'Com leite'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: chocolateHotImg,
   },
   {
@@ -107,7 +107,7 @@ export const coffeeCatalog = [
     description:
       'Drink gelado de café expresso com rum, creme de leite e hortelã',
     tags: ['Especial', 'Alcoólico', 'Gelado'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: cubanoImg,
   },
   {
@@ -115,7 +115,7 @@ export const coffeeCatalog = [
     name: 'Havaiano',
     description: 'Bebida adocicada preparada com café e leite de coco',
     tags: ['Especial'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: macchiatoImg,
   },
   {
@@ -123,7 +123,7 @@ export const coffeeCatalog = [
     name: 'Árabe',
     description: 'Bebida preparada com grãos de café árabe e especiarias',
     tags: ['Especial'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: arabeImg,
   },
   {
@@ -131,7 +131,7 @@ export const coffeeCatalog = [
     name: 'Irlandês',
     description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
     tags: ['Especial', 'Alcoólico'],
-    price: coffeePrice,
+    price: COFFEE_PRICE,
     coffeeImage: irlandesImg,
   },
 ]
