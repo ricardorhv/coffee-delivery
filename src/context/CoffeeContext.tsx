@@ -6,6 +6,7 @@ import {
   useState,
 } from 'react'
 import { v4 as uuid } from 'uuid'
+
 import {
   addCoffeeToTheCartAction,
   calculateTotal,
@@ -42,13 +43,14 @@ type ThemeProps = 'light' | 'dark'
 interface CoffeeContextType {
   orders: Order[]
   cartState: Cart
+  isLightTheCurrentTheme: boolean
+  currentTheme: ThemeProps
   addCoffeeToTheCart: (data: CoffeeCart) => void
   removeCoffeeFromTheCart: (coffeeId: string) => void
   increaseQuantity: (coffeeId: string) => void
   decreaseQuantity: (coffeeId: string) => void
   createNewOrder: (formData: FormDataType) => void
   switchCurrentTheme: (newTheme: ThemeProps) => void
-  isLightTheCurrentTheme: boolean
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextType)
@@ -155,6 +157,7 @@ export function CoffeeContextProvider({
         cartState,
         switchCurrentTheme,
         isLightTheCurrentTheme,
+        currentTheme,
       }}
     >
       {children}

@@ -7,10 +7,13 @@ import {
   RemoveCoffeeFromCartButton,
 } from './styles'
 
-import { Counter } from '../../../../components/Counter'
 import { CoffeeContext } from '../../../../context/CoffeeContext'
 import { formatNumber } from '../../../../utils/format-number'
+
+import { Counter } from '../../../../components/Counter'
 import { CoffeeCart } from '../../../../reducers/cart/reducer'
+
+import { toast } from 'react-toastify'
 
 export function CoffeeSelected({
   name,
@@ -37,6 +40,7 @@ export function CoffeeSelected({
 
   function handleRemoveCoffee() {
     removeCoffeeFromTheCart(id)
+    toast(`${name} removido do carrinho!`)
   }
 
   return (

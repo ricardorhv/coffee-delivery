@@ -4,10 +4,23 @@ import coffeeDeliveryImg from '../../assets/coffeeDeliveryImg.svg'
 import { Background, GroupItems, IntroContainer, Item } from './styles'
 
 import { CoffeeCatalog } from './components/CoffeeCatalog'
+import { ToastContainer } from 'react-toastify'
+import { useContext } from 'react'
+import { CoffeeContext } from '../../context/CoffeeContext'
 
 export function Home() {
+  const { currentTheme } = useContext(CoffeeContext)
+
   return (
     <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        theme={currentTheme}
+        pauseOnHover={false}
+      />
       <IntroContainer>
         <div>
           <h1>Encontre o café perfeito para qualquer hora do dia</h1>

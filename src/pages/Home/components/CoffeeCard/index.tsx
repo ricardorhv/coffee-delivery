@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { ShoppingCart } from 'phosphor-react'
 import { Buy, CartButton, CoffeeCardContainer, TagList } from './styles'
@@ -8,6 +9,9 @@ import { CoffeeContext } from '../../../../context/CoffeeContext'
 
 import { Counter } from '../../../../components/Counter'
 import { Coffee } from '../../../../reducers/cart/reducer'
+
+import { toast } from 'react-toastify'
+import { injectStyle } from 'react-toastify/dist/inject-style'
 
 export function CoffeeCard({
   id,
@@ -19,6 +23,10 @@ export function CoffeeCard({
 }: Coffee) {
   const { addCoffeeToTheCart } = useContext(CoffeeContext)
   const [counter, setCounter] = useState(1)
+
+  injectStyle()
+
+  const navigate = useNavigate()
 
   function handleIncreaseCounter() {
     setCounter((state) => state + 1)
@@ -40,7 +48,9 @@ export function CoffeeCard({
       tags,
       quantity: counter,
     })
-    alert('Item adicionado no carrinho')
+    toast(`${name} adicionado no carrinho!`, {
+      onClick: () => navigate('/checkout'),
+    })
   }
 
   return (
