@@ -39,3 +39,15 @@ export const CoffeeList = styled.section`
 
   margin-top: 3.375rem;
 `
+
+export const EmptyCoffeeList = styled.section`
+  display: flex;
+  justify-content: center;
+
+  padding: 5rem 0;
+
+  h4 {
+    color: ${(props) => props.theme['base-button']};
+    font-size: 1.5rem;
+  }
+`

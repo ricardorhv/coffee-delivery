@@ -6,6 +6,7 @@ import { CoffeeCard } from '../CoffeeCard'
 import {
   CoffeeCatalogContainer,
   CoffeeList,
+  EmptyCoffeeList,
   FilterByCategory,
   HeaderCatalog,
 } from './styles'
@@ -14,6 +15,7 @@ import { FilterContext } from '../../../../context/FilterContext'
 export function CoffeeCatalog() {
   const { categoriesOrderedByChecked, coffeeListFiltered } =
     useContext(FilterContext)
+  const isCoffeeListFilteredEmpty = coffeeListFiltered.length === 0
 
   return (
     <CoffeeCatalogContainer>
@@ -25,11 +27,17 @@ export function CoffeeCatalog() {
           ))}
         </FilterByCategory>
       </HeaderCatalog>
-      <CoffeeList>
-        {coffeeListFiltered.map((coffee) => (
-          <CoffeeCard {...coffee} key={coffee.id} />
-        ))}
-      </CoffeeList>
+      {isCoffeeListFilteredEmpty ? (
+        <EmptyCoffeeList>
+          <h4>Nenhum item encontrado!</h4>
+        </EmptyCoffeeList>
+      ) : (
+        <CoffeeList>
+          {coffeeListFiltered.map((coffee) => (
+            <CoffeeCard {...coffee} key={coffee.id} />
+          ))}
+        </CoffeeList>
+      )}
     </CoffeeCatalogContainer>
   )
 }

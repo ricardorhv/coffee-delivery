@@ -69,14 +69,13 @@ export function FilterContextProvider({ children }: ContextProviderProps) {
   }
 
   const coffeeListFiltered = coffeeData.filter((coffee) => {
-    // const tagsFiltered = coffee.tags.filter((tag) =>
-    //   filterListByCategory.includes(tag),
-    // )
-    const hasTheSameCategories =
-      JSON.stringify(coffee.tags.sort()) ===
-      JSON.stringify(filterListByCategory.sort())
-
-    return hasTheSameCategories
+    if (filterListByCategory.includes('Todos')) {
+      return coffee
+    }
+    const tagsFiltered = coffee.tags.filter((tag) =>
+      filterListByCategory.includes(tag as CategoryType),
+    )
+    return tagsFiltered.length === filterListByCategory.length
   }) as Coffee[]
 
   const categoriesOrderedByChecked = orderCategoriesByChecked()
