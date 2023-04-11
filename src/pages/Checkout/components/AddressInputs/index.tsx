@@ -17,6 +17,7 @@ export function AddressInputs() {
     formState: { errors },
     setValue,
     setError,
+    reset,
   } = useFormContext<OrderFormData>()
   const complement = watch('complement') || ''
   const CEP = watch('CEP')
@@ -30,9 +31,18 @@ export function AddressInputs() {
             { type: 'custom', message: 'Informe um CEP válido' },
             { shouldFocus: true },
           )
+          reset({
+            CEP,
+            city: '',
+            UF: '',
+            street: '',
+            neighborhood: '',
+          })
         } else {
           setValue('city', data.localidade)
           setValue('UF', data.uf)
+          setValue('street', data.logradouro)
+          setValue('neighborhood', data.bairro)
         }
       })
     }
