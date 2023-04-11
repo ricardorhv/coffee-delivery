@@ -23,7 +23,7 @@ import {
 } from '../reducers/cart/reducer'
 
 export interface FormDataType {
-  CEP: string
+  CEP: number
   street: string
   houseNumber: number
   complement?: string

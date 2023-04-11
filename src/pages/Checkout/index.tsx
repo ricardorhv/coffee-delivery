@@ -28,23 +28,30 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 
 const orderFormValidationSchema = zod.object({
-  CEP: zod
+  CEP: zod.coerce
+    .number()
+    .min(10000000, 'Informe um CEP válido')
+    .max(99999999, 'Informe um CEP válido'),
+  street: zod
     .string()
-    .min(9, 'Informe um CEP válido (XXXXX-XXX)')
-    .max(9, 'Informe um CEP válido (XXXXX-XXX)')
-    .regex(/\d{5}-\d{3}/, 'Formato inválido'),
-  street: zod.string().min(3, 'Informe a rua'),
-  houseNumber: zod
-    .number({
-      invalid_type_error: 'Informe o número da casa',
-    })
-    .int('Informe um número inteiro')
-    .positive('Informe um número positivo'),
+    .nonempty('Esse campo é obrigatório')
+    .min(3, 'Informe um valor válido'),
+  houseNumber: zod.coerce
+    .number()
+    .min(1, 'Esse campo é obrigatório')
+    .int('Informe um número inteiro'),
   complement: zod.string().optional(),
-  neighborhood: zod.string().min(3, 'Informe o bairro'),
-  city: zod.string().min(3, 'Informe a cidade'),
+  neighborhood: zod
+    .string()
+    .nonempty('Esse campo é obrigatório')
+    .min(3, 'Informe um valor válido'),
+  city: zod
+    .string()
+    .nonempty('Esse campo é obrigatório')
+    .min(3, 'Informe um valor válido'),
   UF: zod
     .string()
+    .nonempty('Esse campo é obrigatório')
     .min(2, 'Informe o UF')
     .max(2, 'Informe um UF válido')
     .toUpperCase(),
@@ -55,7 +62,7 @@ const orderFormValidationSchema = zod.object({
   ] as const),
 })
 
-type OrderFormData = zod.infer<typeof orderFormValidationSchema>
+export type OrderFormData = zod.infer<typeof orderFormValidationSchema>
 
 export function Checkout() {
   const {
@@ -73,9 +80,7 @@ export function Checkout() {
     },
     resolver: zodResolver(orderFormValidationSchema),
   })
-
   const { handleSubmit } = orderForm
-
   const onSubmit: SubmitHandler<OrderFormData> = (data, e) => {
     createNewOrder(data)
     navigate('/success')

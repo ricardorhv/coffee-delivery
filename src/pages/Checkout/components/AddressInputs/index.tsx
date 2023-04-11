@@ -6,19 +6,42 @@ import {
   GridContainer,
   InputWrapper,
 } from './styles'
+import { useEffect } from 'react'
+import { OrderFormData } from '../..'
+import axios from 'axios'
 
 export function AddressInputs() {
   const {
     register,
     watch,
     formState: { errors },
-  } = useFormContext()
+    setValue,
+    setError,
+  } = useFormContext<OrderFormData>()
   const complement = watch('complement') || ''
+  const CEP = watch('CEP')
+
+  useEffect(() => {
+    if (CEP >= 10000000 && CEP <= 99999999) {
+      axios.get(`https://viacep.com.br/ws/${CEP}/json`).then(({ data }) => {
+        if (data.erro) {
+          setError(
+            'CEP',
+            { type: 'custom', message: 'Informe um CEP válido' },
+            { shouldFocus: true },
+          )
+        } else {
+          setValue('city', data.localidade)
+          setValue('UF', data.uf)
+        }
+      })
+    }
+  }, [CEP, setValue, setError])
 
   return (
     <AddressContainer>
       <InputWrapper>
-        <input type="text" placeholder="CEP" {...register('CEP')} />
+        <input type="number" placeholder="CEP" {...register('CEP')} />
         <ErrorMessage
           errors={errors}
           name="CEP"
@@ -39,7 +62,7 @@ export function AddressInputs() {
           <input
             type="number"
             placeholder="Número"
-            {...register('houseNumber', { valueAsNumber: true })}
+            {...register('houseNumber')}
           />
           <ErrorMessage
             errors={errors}
