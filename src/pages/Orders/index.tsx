@@ -1,15 +1,15 @@
-import { OrderTable, OrdersContainer } from './styles'
+import { EmptyOrder, OrderTable, OrdersContainer } from './styles'
 import { Row } from './components/Row'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { CoffeeContext } from '../../context/CoffeeContext'
-import { differenceInMinutes } from 'date-fns'
 
 export function Orders() {
   const { orders } = useContext(CoffeeContext)
+  const hasOrders = orders.length !== 0
 
   const ordersByLastToFirst = orders.slice(0).reverse()
 
-  return (
+  return hasOrders ? (
     <OrdersContainer>
       <header>
         <h2>Meus Pedidos</h2>
@@ -20,5 +20,9 @@ export function Orders() {
         })}
       </OrderTable>
     </OrdersContainer>
+  ) : (
+    <EmptyOrder>
+      <h1>Você não possui nenhum pedido!</h1>
+    </EmptyOrder>
   )
 }

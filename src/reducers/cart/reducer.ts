@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid'
 import { ActionTypes } from './actions'
 import { produce } from 'immer'
 import { CategoryType } from '../../context/FilterContext'

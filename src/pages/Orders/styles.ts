@@ -14,3 +14,13 @@ export const OrderTable = styled.main`
 
   min-width: 850px;
 `
+
+export const EmptyOrder = styled.div`
+  width: 100%;
+  height: 100vh;
+  padding: 10rem 0;
+
+  display: flex;
+  justify-content: center;
+  text-align: center;
+`
