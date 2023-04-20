@@ -57,6 +57,10 @@ export const Location = styled.div`
   svg {
     color: ${(props) => props.theme.purple};
   }
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `
 
 export const CartLink = styled(NavLink)`
@@ -69,6 +73,8 @@ export const CartLink = styled(NavLink)`
   background: ${(props) => props.theme['yellow-light']};
   color: ${(props) => props.theme['yellow-dark']};
   position: relative;
+
+  transition: filter 0.4s;
 
   div {
     position: absolute;
@@ -90,5 +96,27 @@ export const CartLink = styled(NavLink)`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  :hover {
+    filter: brightness(0.9);
+  }
+`
+
+export const OrdersLink = styled(NavLink)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.5rem;
+  border-radius: 6px;
+
+  background: ${(props) => props.theme['yellow-light']};
+  color: ${(props) => props.theme['yellow-dark']};
+
+  transition: filter 0.4s;
+
+  :hover {
+    filter: brightness(0.9);
   }
 `

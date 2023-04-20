@@ -21,6 +21,7 @@ import {
   CoffeeCart,
   DELIVERY_PRICE,
 } from '../reducers/cart/reducer'
+import { differenceInMinutes } from 'date-fns'
 
 export interface FormDataType {
   CEP: number
@@ -33,9 +34,16 @@ export interface FormDataType {
   paymentWay: 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro'
 }
 
+enum StatusType {
+  DONE = 'Entregue',
+  IN_PROGRESS = 'Em andamento',
+}
+
 export interface Order extends Cart {
   id: string
   info: FormDataType
+  createdAt: Date
+  status: StatusType
 }
 
 type ThemeProps = 'light' | 'dark'
@@ -49,7 +57,7 @@ interface CoffeeContextType {
   removeCoffeeFromTheCart: (coffeeId: string) => void
   increaseQuantity: (coffeeId: string) => void
   decreaseQuantity: (coffeeId: string) => void
-  createNewOrder: (formData: FormDataType) => void
+  createNewOrder: (formData: FormDataType, id: string) => void
   switchCurrentTheme: (newTheme: ThemeProps) => void
 }
 
@@ -84,6 +92,40 @@ export function CoffeeContextProvider({
 
   const [orders, setOrders] = useState<Order[]>([])
   const { selectedCoffeeList } = cartState
+
+  function changeStatusOrderToDone() {
+    setOrders((state) => {
+      return state.map((order) => {
+        if (differenceInMinutes(new Date(), new Date(order.createdAt)) >= 45) {
+          return {
+            ...order,
+            status: StatusType.DONE,
+          }
+        }
+        return {
+          ...order,
+          status: StatusType.IN_PROGRESS,
+        }
+      })
+    })
+  }
+
+  useEffect(() => {
+    const ordersFromLocalStorageJSON = localStorage.getItem(
+      '@coffee-delivery:orders-1.0.0',
+    )
+    if (ordersFromLocalStorageJSON) {
+      setOrders(JSON.parse(ordersFromLocalStorageJSON))
+    }
+    changeStatusOrderToDone()
+  }, [])
+
+  useEffect(() => {
+    if (orders.length !== 0) {
+      const ordersInJSON = JSON.stringify(orders)
+      localStorage.setItem('@coffee-delivery:orders-1.0.0', ordersInJSON)
+    }
+  }, [orders])
 
   const storedTheme = localStorage?.getItem('theme') ?? 'light'
 
@@ -130,10 +172,12 @@ export function CoffeeContextProvider({
     dispatch(resetCartAction())
   }
 
-  function createNewOrder(formData: FormDataType) {
+  function createNewOrder(formData: FormDataType, id: string) {
     const newOrder = {
-      id: uuid(),
+      id,
       info: formData,
+      createdAt: new Date(),
+      status: StatusType.IN_PROGRESS,
       ...cartState,
     }
 

@@ -3,6 +3,8 @@ import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { v4 as uuid } from 'uuid'
+
 import {
   Bank,
   CreditCard,
@@ -82,8 +84,9 @@ export function Checkout() {
   })
   const { handleSubmit } = orderForm
   const onSubmit: SubmitHandler<OrderFormData> = (data, e) => {
-    createNewOrder(data)
-    navigate('/success')
+    const orderID = uuid()
+    createNewOrder(data, orderID)
+    navigate(`/orders/${orderID}/success`)
   }
 
   return (

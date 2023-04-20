@@ -1,14 +1,16 @@
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import { useContext } from 'react'
 import illustration from '../../assets/Illustration.svg'
-import { CoffeeContext } from '../../context/CoffeeContext'
+import { CoffeeContext, Order } from '../../context/CoffeeContext'
 
 import { Item, OrderInfo, SuccessContainer, Wrapper } from './styles'
+import { useParams } from 'react-router-dom'
 
 export function Success() {
   const { orders } = useContext(CoffeeContext)
-  const lastOrderIndex = orders.length - 1
-  const { info } = orders[lastOrderIndex]
+  const { orderID } = useParams()
+
+  const orderFound = orders.find((order) => order.id === orderID) as Order
 
   return (
     <SuccessContainer>
@@ -25,11 +27,12 @@ export function Success() {
               <span>
                 Entrega em{' '}
                 <strong>
-                  {info.street}, {info.houseNumber}
+                  {orderFound.info.street}, {orderFound.info.houseNumber}
                 </strong>
               </span>
               <span>
-                {info.neighborhood} - {info.city}, {info.UF}
+                {orderFound.info.neighborhood} - {orderFound.info.city},{' '}
+                {orderFound.info.UF}
               </span>
             </div>
           </Item>
@@ -48,7 +51,7 @@ export function Success() {
             </div>
             <div>
               <span>Pagamento na entrega</span>
-              <strong>{info.paymentWay}</strong>
+              <strong>{orderFound.info.paymentWay}</strong>
             </div>
           </Item>
         </OrderInfo>

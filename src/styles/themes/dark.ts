@@ -4,6 +4,7 @@ export const darkTheme = {
   'yellow-dark': '#997000',
 
   red: '#E15554',
+  green: '#00B37E',
 
   purple: '#551A8B',
   'purple-light': '#9B91B3',

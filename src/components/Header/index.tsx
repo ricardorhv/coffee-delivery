@@ -1,4 +1,4 @@
-import { MapPin, Moon, ShoppingCart, Sun } from 'phosphor-react'
+import { MapPin, Moon, Scroll, ShoppingCart, Sun } from 'phosphor-react'
 import { NavLink } from 'react-router-dom'
 import {
   CartLink,
@@ -6,6 +6,7 @@ import {
   HeaderContainer,
   Wrapper,
   ThemeSwitcherButton,
+  OrdersLink,
 } from './styles'
 import logoLight from '../../assets/logoLight.svg'
 import logoDark from '../../assets/logoDark.svg'
@@ -15,19 +16,15 @@ import { CoffeeContext } from '../../context/CoffeeContext'
 export function Header() {
   const {
     cartState: { selectedCoffeeList },
-    orders,
     switchCurrentTheme,
     isLightTheCurrentTheme,
   } = useContext(CoffeeContext)
   const totalItemsIntoTheCart = selectedCoffeeList.length
 
-  const hasOrderedAlready = orders.length !== 0
-  const lastOrder = orders[orders.length - 1]
-
   function handleSwitchTheme() {
     switchCurrentTheme(isLightTheCurrentTheme ? 'dark' : 'light')
   }
-
+  //
   return (
     <HeaderContainer>
       <NavLink to="/">
@@ -36,10 +33,17 @@ export function Header() {
           alt="Logo do Coffee Delivery"
         />
       </NavLink>
+
       <Wrapper>
+        <Location>
+          <MapPin size={22} weight="fill" />
+          <span>Assis Chateaubriand, PR</span>
+        </Location>
+
         <ThemeSwitcherButton
           isLightTheCurrentTheme={isLightTheCurrentTheme}
           onClick={handleSwitchTheme}
+          title="Mudar o tema"
         >
           {isLightTheCurrentTheme ? (
             <Sun size={22} weight="fill" />
@@ -48,14 +52,9 @@ export function Header() {
           )}
         </ThemeSwitcherButton>
 
-        {hasOrderedAlready && (
-          <Location>
-            <MapPin size={22} weight="fill" />
-            <span>
-              {lastOrder.info.city}, {lastOrder.info.UF}
-            </span>
-          </Location>
-        )}
+        <OrdersLink to="/orders" title="Pedidos">
+          <Scroll size={22} weight="fill" />
+        </OrdersLink>
 
         <CartLink to="/checkout" title="Carrinho de compra">
           <ShoppingCart size={22} weight="fill" />

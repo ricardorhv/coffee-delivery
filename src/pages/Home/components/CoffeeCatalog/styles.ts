@@ -13,10 +13,17 @@ export const HeaderCatalog = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 680px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 `
 
 export const FilterByCategory = styled.section`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
 `
 

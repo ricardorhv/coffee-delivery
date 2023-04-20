@@ -46,7 +46,7 @@ export function AddressInputs() {
         }
       })
     }
-  }, [CEP, setValue, setError])
+  }, [CEP, setValue, setError, reset])
 
   return (
     <AddressContainer>

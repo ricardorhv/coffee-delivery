@@ -4,6 +4,7 @@ export const lightTheme = {
   'yellow-dark': '#C47F17',
 
   red: '#E15554',
+  green: '#00B37E',
 
   purple: '#8047F8',
   'purple-light': '#EBE5F9',
