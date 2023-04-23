@@ -9,7 +9,7 @@ export const RadioInputContainer = styled.div`
 
   label {
     background: ${(props) => props.theme['base-button']};
-    outline: 1px solid ${(props) => props.theme['base-button']};
+    border: 1px solid ${(props) => props.theme['base-button']};
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -46,6 +46,6 @@ export const RadioInputContainer = styled.div`
 
   &:has(input:checked) label {
     background: ${(props) => props.theme['purple-light']};
-    outline: 1px solid ${(props) => props.theme.purple};
+    border: 1px solid ${(props) => props.theme.purple};
   }
 `
