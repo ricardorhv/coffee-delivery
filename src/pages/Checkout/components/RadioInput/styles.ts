@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const RadioInputContainer = styled.div`
   width: 100%;
   cursor: pointer;
+  border-radius: 6px;
 
   position: relative;
 

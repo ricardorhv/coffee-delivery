@@ -1,7 +1,10 @@
-import { EmptyOrder, OrderTable, OrdersContainer } from './styles'
-import { Row } from './components/Row'
 import { useContext } from 'react'
+
 import { CoffeeContext } from '../../context/CoffeeContext'
+
+import { Row } from './components/Row'
+
+import { EmptyOrder, OrderTable, OrdersContainer } from './styles'
 
 export function Orders() {
   const { orders } = useContext(CoffeeContext)
