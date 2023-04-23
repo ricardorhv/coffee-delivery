@@ -11,8 +11,6 @@ export const OrderTable = styled.main`
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-
-  min-width: 850px;
 `
 
 export const EmptyOrder = styled.div`

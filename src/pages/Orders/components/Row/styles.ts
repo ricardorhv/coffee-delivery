@@ -45,6 +45,14 @@ export const TableRow = styled.div`
     &:last-child {
       justify-content: center;
       align-items: center;
+      flex: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      &:nth-child(2),
+      &:nth-child(3) {
+        display: none;
+      }
     }
   }
 `
@@ -83,6 +91,12 @@ export const ShowDetailsButton = styled.button`
   &:hover {
     color: ${(props) => props.theme['yellow-dark']};
   }
+
+  @media (max-width: 850px) {
+    span {
+      display: none;
+    }
+  }
 `
 
 export const TableDataDetailed = styled.div<{
@@ -103,6 +117,12 @@ export const Wrapper = styled.div`
 
   span {
     display: block;
+  }
+`
+
+export const WrapperHeaderInfo = styled(Wrapper)`
+  @media (min-width: 768px) {
+    display: none;
   }
 `
 
@@ -142,6 +162,10 @@ export const ProductInfo = styled.div`
     span:first-child {
       font-weight: 700;
       font-size: 1.25rem;
+    }
+
+    span:nth-child(3) {
+      font-weight: 700;
     }
   }
 `

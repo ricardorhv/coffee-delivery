@@ -16,6 +16,7 @@ import {
   ProductInfo,
   ProductFooter,
   StatusColumn,
+  WrapperHeaderInfo,
 } from './styles'
 
 import { Order } from '../../../../context/CoffeeContext'
@@ -63,7 +64,7 @@ export function Row({
         </div>
         <div>
           <ShowDetailsButton onClick={handleIsShowDetailsClicked}>
-            Detalhes do pedido
+            <span>Detalhes do pedido</span>
             {isShowDetailsClicked ? (
               <CaretUp size={16} weight="bold" />
             ) : (
@@ -73,6 +74,20 @@ export function Row({
         </div>
       </TableRow>
       <TableDataDetailed isShowDetailsClicked={isShowDetailsClicked}>
+        <WrapperHeaderInfo>
+          <StatusColumn statusCode={status}>
+            <strong>Status </strong>
+            <span>{status}</span>
+          </StatusColumn>
+          <div>
+            <strong>Data </strong>
+            <span>
+              {format(new Date(createdAt), 'dd/MM/yyyy HH:mm', {
+                locale: ptBR,
+              })}
+            </span>
+          </div>
+        </WrapperHeaderInfo>
         <Wrapper>
           <strong>Endereço</strong>
           <div>
