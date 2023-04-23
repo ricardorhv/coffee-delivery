@@ -16,7 +16,7 @@ export function Orders() {
       </header>
       <OrderTable>
         {ordersByLastToFirst.map((order) => {
-          return <Row key={order.id} {...order} />
+          return <Row key={order.id} order={order} />
         })}
       </OrderTable>
     </OrdersContainer>

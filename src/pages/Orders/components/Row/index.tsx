@@ -6,32 +6,23 @@ import ptBR from 'date-fns/locale/pt-BR'
 import { CaretDown, CaretUp } from 'phosphor-react'
 import {
   TableRowContainer,
-  TableRow,
-  ShowDetailsButton,
-  TableDataDetailed,
-  Wrapper,
-  ProductsList,
-  Product,
-  ProductHeader,
-  ProductInfo,
-  ProductFooter,
-  StatusColumn,
-  WrapperHeaderInfo,
+  HeaderRow,
+  MoreDetailsButton,
+  MoreDetailsButtonColumn,
 } from './styles'
 
 import { Order } from '../../../../context/CoffeeContext'
+import { HeaderColumn } from '../HeaderColumn'
+import { StatusColumn } from '../StatusColumn'
+import { TableData } from '../TableData'
 
-export function Row({
-  id,
-  deliveryPrice,
-  selectedCoffeeList,
-  info,
-  subtotal,
-  total,
-  createdAt,
-  status,
-}: Order) {
+interface RowProps {
+  order: Order
+}
+
+export function Row({ order }: RowProps) {
   const [isShowDetailsClicked, setIsShowDetailsClicked] = useState(false)
+  const { id, info, total, createdAt, status } = order
 
   function handleIsShowDetailsClicked() {
     setIsShowDetailsClicked((state) => !state)
@@ -39,111 +30,30 @@ export function Row({
 
   return (
     <TableRowContainer>
-      <TableRow>
-        <div>
-          <strong>ID do Pedido</strong>
-          <span>{id}</span>
-        </div>
-        <StatusColumn statusCode={status}>
-          <strong>Status</strong>
-          <span>{status}</span>
-        </StatusColumn>
-        <div>
-          <strong>Data</strong>
-          <span>
-            {format(new Date(createdAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
-          </span>
-        </div>
-        <div>
-          <strong>Pagamento</strong>
-          <span>{info.paymentWay}</span>
-        </div>
-        <div>
-          <strong>Total</strong>
-          <span>R$ {formatNumber(total)}</span>
-        </div>
-        <div>
-          <ShowDetailsButton onClick={handleIsShowDetailsClicked}>
+      <HeaderRow>
+        <HeaderColumn title="ID do Pedido" content={id} />
+        <StatusColumn status={status} />
+        <HeaderColumn
+          title="Data"
+          content={format(new Date(createdAt), 'dd/MM/yyyy HH:mm', {
+            locale: ptBR,
+          })}
+        />
+        <HeaderColumn title="Pagamento" content={info.paymentWay} />
+        <HeaderColumn title="Total" content={`R$ ${formatNumber(total)}`} />
+        <MoreDetailsButtonColumn>
+          <MoreDetailsButton onClick={handleIsShowDetailsClicked}>
             <span>Detalhes do pedido</span>
             {isShowDetailsClicked ? (
               <CaretUp size={16} weight="bold" />
             ) : (
               <CaretDown size={16} weight="bold" />
             )}
-          </ShowDetailsButton>
-        </div>
-      </TableRow>
-      <TableDataDetailed isShowDetailsClicked={isShowDetailsClicked}>
-        <WrapperHeaderInfo>
-          <StatusColumn statusCode={status}>
-            <strong>Status </strong>
-            <span>{status}</span>
-          </StatusColumn>
-          <div>
-            <strong>Data </strong>
-            <span>
-              {format(new Date(createdAt), 'dd/MM/yyyy HH:mm', {
-                locale: ptBR,
-              })}
-            </span>
-          </div>
-        </WrapperHeaderInfo>
-        <Wrapper>
-          <strong>Endereço</strong>
-          <div>
-            <span>
-              {info.street}, N° {info.houseNumber}{' '}
-              {info.complement && ` - ${info.complement},`}
-            </span>
-            <span>
-              {info.neighborhood}, CEP {info.CEP} - {info.city}, {info.UF}
-            </span>
-          </div>
-        </Wrapper>
+          </MoreDetailsButton>
+        </MoreDetailsButtonColumn>
+      </HeaderRow>
 
-        <Wrapper>
-          <ProductHeader>
-            <strong>Produto(s)</strong>
-            <strong>Total</strong>
-          </ProductHeader>
-          <ProductsList>
-            {selectedCoffeeList.map((selectedCoffee) => (
-              <Product key={selectedCoffee.id}>
-                <ProductInfo>
-                  <img
-                    src={selectedCoffee.coffeeImage}
-                    alt={selectedCoffee.name}
-                  />
-                  <div>
-                    <span>{selectedCoffee.name}</span>
-                    <span>{selectedCoffee.description}</span>
-                    <span>Quantidade: {selectedCoffee.quantity}</span>
-                  </div>
-                </ProductInfo>
-                <span>
-                  R${' '}
-                  {formatNumber(selectedCoffee.price * selectedCoffee.quantity)}
-                </span>
-              </Product>
-            ))}
-
-            <ProductFooter>
-              <div>
-                <strong>Total Produto(s)</strong>
-                <span>R$ {formatNumber(subtotal)}</span>
-              </div>
-              <div>
-                <strong>Preço de entrega</strong>
-                <span>R$ {formatNumber(deliveryPrice)}</span>
-              </div>
-              <div>
-                <strong>Total Pedido</strong>
-                <strong>R$ {formatNumber(total)}</strong>
-              </div>
-            </ProductFooter>
-          </ProductsList>
-        </Wrapper>
-      </TableDataDetailed>
+      <TableData order={order} isShowDetailsClicked={isShowDetailsClicked} />
     </TableRowContainer>
   )
 }
