@@ -54,7 +54,7 @@ export const EmptyCoffeeList = styled.section`
   padding: 5rem 0;
 
   h4 {
-    color: ${(props) => props.theme['base-button']};
+    color: ${(props) => props.theme['base-text']};
     font-size: 1.5rem;
   }
 `

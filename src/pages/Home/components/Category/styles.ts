@@ -19,7 +19,7 @@ export const CategoryContainer = styled.div`
 
   &:has(input[type='checkbox']:checked) {
     background: ${(props) => props.theme['yellow-dark']};
-    color: ${(props) => props.theme['base-text']};
+    color: ${(props) => props.theme['base-title']};
   }
 
   label {
