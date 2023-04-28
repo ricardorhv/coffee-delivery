@@ -46,8 +46,6 @@
 
 <img src='./.github/preview/responsive.gif'/>
 
----
-
 <br>
 
 ---
@@ -55,8 +53,6 @@
 ## 🚀 I went beyond the challenge
 
 I did more than was requested to me
-
-<br>
 
 - ✔️ I created `responsive pages`
 - ✔️ I created a `light/dark mode`
